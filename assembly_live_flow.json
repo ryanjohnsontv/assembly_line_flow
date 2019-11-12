@@ -1,0 +1,5989 @@
+[
+    {
+        "id": "20bcaac1.c4bfc6",
+        "type": "tab",
+        "label": "Battery Plant",
+        "disabled": true,
+        "info": ""
+    },
+    {
+        "id": "a03d703f.f31f9",
+        "type": "ui_button",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "group": "329524d.05e8cdc",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "label": "Scan RFID",
+        "tooltip": "Scan RFID Tag on Battery Module",
+        "color": "",
+        "bgcolor": "blue",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "x": 130,
+        "y": 860,
+        "wires": [
+            [
+                "bc5dec3b.e858f"
+            ]
+        ]
+    },
+    {
+        "id": "68456945.ed50a8",
+        "type": "uuid",
+        "z": "20bcaac1.c4bfc6",
+        "uuidVersion": "v4",
+        "namespaceType": "",
+        "namespace": "",
+        "namespaceCustom": "",
+        "name": "RFID UID:",
+        "field": "payload",
+        "fieldType": "msg",
+        "x": 390,
+        "y": 860,
+        "wires": [
+            [
+                "e2f022bc.d30b8"
+            ]
+        ]
+    },
+    {
+        "id": "6bf37e69.b37f3",
+        "type": "ui_text",
+        "z": "20bcaac1.c4bfc6",
+        "group": "329524d.05e8cdc",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "ID:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1350,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "2689a0bd.a46f7",
+        "type": "ui_text",
+        "z": "20bcaac1.c4bfc6",
+        "group": "ae0e0f56.8219f",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Total Batteries Started:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1400,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "72184fa7.d8d33",
+        "type": "ui_text",
+        "z": "20bcaac1.c4bfc6",
+        "group": "ae0e0f56.8219f",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Time:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1350,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "eb1d6b47.bbd008",
+        "type": "function",
+        "z": "20bcaac1.c4bfc6",
+        "name": "current_time",
+        "func": "var now = new Date();\n//Generate timestamp based on current server clock and assigns it to the now variable\nflow.set(\"current_time\", now);\n//Sets the current_time flow variable to the value of the 'now' variable\nmsg.payload = now;\n//Assigns the now variable to the message payload\nreturn msg;\n//Send the message to the node output",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1030,
+        "y": 20,
+        "wires": [
+            [
+                "c32f26c1.35d6c8"
+            ]
+        ]
+    },
+    {
+        "id": "a941f6c7.cd6b88",
+        "type": "inject",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Every Second",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 140,
+        "y": 20,
+        "wires": [
+            [
+                "24b09594.6742ea"
+            ]
+        ]
+    },
+    {
+        "id": "5c21bd4c.3f60f4",
+        "type": "ui_text",
+        "z": "20bcaac1.c4bfc6",
+        "group": "ae0e0f56.8219f",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Current Status:",
+        "format": "<font color= {{msg.color}} > {{msg.payload}} </font>",
+        "layout": "row-spread",
+        "x": 1380,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "1675c33d.bc911d",
+        "type": "ui_button",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "group": "ae0e0f56.8219f",
+        "order": 7,
+        "width": 2,
+        "height": 1,
+        "passthru": false,
+        "label": "START",
+        "tooltip": "Start Production",
+        "color": "",
+        "bgcolor": "green",
+        "icon": "",
+        "payload": "Are you sure you want to START?",
+        "payloadType": "str",
+        "topic": "",
+        "x": 120,
+        "y": 540,
+        "wires": [
+            [
+                "b75c9805.22ee28"
+            ]
+        ]
+    },
+    {
+        "id": "5cb9e706.b68d08",
+        "type": "ui_button",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "group": "ae0e0f56.8219f",
+        "order": 8,
+        "width": 2,
+        "height": 1,
+        "passthru": false,
+        "label": "STOP",
+        "tooltip": "Stop Production",
+        "color": "",
+        "bgcolor": "red",
+        "icon": "",
+        "payload": "Are you sure you want to STOP?",
+        "payloadType": "str",
+        "topic": "",
+        "x": 110,
+        "y": 420,
+        "wires": [
+            [
+                "a4e66f54.2a8ca"
+            ]
+        ]
+    },
+    {
+        "id": "582292eb.766d9c",
+        "type": "change",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Battery Plant Not Operational!",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Battery Plant Not Operational!",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1090,
+        "y": 420,
+        "wires": [
+            [
+                "ba8d712a.39f27",
+                "8a3d029.7c457"
+            ]
+        ]
+    },
+    {
+        "id": "7bc10ffd.a2a1f",
+        "type": "ui_text",
+        "z": "20bcaac1.c4bfc6",
+        "group": "329524d.05e8cdc",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Time Scanned:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1380,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "aae23406.c85358",
+        "type": "ui_text",
+        "z": "20bcaac1.c4bfc6",
+        "group": "ae0e0f56.8219f",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Total Stops:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1370,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "2bd70575.90a4fa",
+        "type": "ui_button",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "group": "ae0e0f56.8219f",
+        "order": 9,
+        "width": 2,
+        "height": 1,
+        "passthru": false,
+        "label": "RESET",
+        "tooltip": "Reset Production Amount",
+        "color": "black",
+        "bgcolor": "yellow",
+        "icon": "",
+        "payload": "Are you sure you want to RESET?",
+        "payloadType": "str",
+        "topic": "",
+        "x": 120,
+        "y": 300,
+        "wires": [
+            [
+                "3a5618e3.94c228"
+            ]
+        ]
+    },
+    {
+        "id": "82b34bc1.52bfc8",
+        "type": "change",
+        "z": "20bcaac1.c4bfc6",
+        "name": "DISABLE STOP",
+        "rules": [
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 140,
+        "y": 340,
+        "wires": [
+            [
+                "240100cb.db5a6"
+            ]
+        ]
+    },
+    {
+        "id": "98d8377a.cf07e8",
+        "type": "change",
+        "z": "20bcaac1.c4bfc6",
+        "name": "ENABLE STOP",
+        "rules": [
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 140,
+        "y": 380,
+        "wires": [
+            [
+                "f5b97e60.1ee3"
+            ]
+        ]
+    },
+    {
+        "id": "f31c0b4c.e68e78",
+        "type": "ui_text",
+        "z": "20bcaac1.c4bfc6",
+        "group": "ae0e0f56.8219f",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Since:",
+        "format": "<font color= {{msg.color}} > {{msg.payload}} </font>",
+        "layout": "row-spread",
+        "x": 1350,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "9baca359.faa87",
+        "type": "function",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Operational + Up Time",
+        "func": "var time = flow.get(\"current_time\");\n\nflow.set(\"up_time\", time);\n\nflow.set(\"current_status\", \"Operational\");\n\nmsg.payload = flow.get(\"current_status\");\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 740,
+        "y": 540,
+        "wires": [
+            [
+                "19b7106b.2fd0d"
+            ]
+        ]
+    },
+    {
+        "id": "c132fb0c.1f7918",
+        "type": "function",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Stopped + Down Time",
+        "func": "var time = flow.get(\"current_time\");\n\nflow.set(\"down_time\", time);\n\nflow.set(\"current_status\", \"Stopped\");\n\nmsg.payload = flow.get(\"current_status\");\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 740,
+        "y": 380,
+        "wires": [
+            [
+                "9ddbc52e.b989e8"
+            ]
+        ]
+    },
+    {
+        "id": "f9fc1e5a.5d90f",
+        "type": "function",
+        "z": "20bcaac1.c4bfc6",
+        "name": "+1 total stops",
+        "func": "var total_stop_count = flow.get('total_stop_count')||0;\n\ntotal_stop_count = total_stop_count + 1;\n\nflow.set(\"total_stop_count\", total_stop_count);\n\nmsg.payload = flow.get(\"total_stop_count\");\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 720,
+        "y": 340,
+        "wires": [
+            [
+                "d367e91b.efb678"
+            ]
+        ]
+    },
+    {
+        "id": "b5405fe1.ed353",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Total Battery Count = 0",
+        "links": [
+            "d8b2662.2391c98",
+            "d5441315.3a5",
+            "def4ba50.9d6468",
+            "c156e9f8.a33cc8"
+        ],
+        "x": 1075,
+        "y": 940,
+        "wires": [
+            [
+                "2689a0bd.a46f7"
+            ]
+        ]
+    },
+    {
+        "id": "83750af4.089e18",
+        "type": "change",
+        "z": "20bcaac1.c4bfc6",
+        "name": "DISABLE START",
+        "rules": [
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 150,
+        "y": 460,
+        "wires": [
+            [
+                "473745ea.7a581c"
+            ]
+        ]
+    },
+    {
+        "id": "bd03df1e.84f72",
+        "type": "change",
+        "z": "20bcaac1.c4bfc6",
+        "name": "ENABLE START",
+        "rules": [
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 150,
+        "y": 500,
+        "wires": [
+            [
+                "a47fa83e.66d548"
+            ]
+        ]
+    },
+    {
+        "id": "ba8d712a.39f27",
+        "type": "ui_toast",
+        "z": "20bcaac1.c4bfc6",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "topic": "",
+        "name": "",
+        "x": 1390,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "8a3d029.7c457",
+        "type": "ui_audio",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "group": "ae0e0f56.8219f",
+        "voice": "en-US",
+        "always": "",
+        "x": 1360,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "c0391f86.f24e3",
+        "type": "change",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Battery Plant Operational!",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Battery Plant Operational!",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1070,
+        "y": 500,
+        "wires": [
+            [
+                "ba8d712a.39f27",
+                "8a3d029.7c457"
+            ]
+        ]
+    },
+    {
+        "id": "2cb27017.d6da",
+        "type": "function",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Color Mapping",
+        "func": "switch (msg.payload) {\n\ncase \"Operational\" : \n    msg.color = \"lime\";\n    break;\n   \ncase \"Stopped\" : \n    msg.color = \"red\";\n    break;\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1040,
+        "y": 380,
+        "wires": [
+            [
+                "5c21bd4c.3f60f4"
+            ]
+        ]
+    },
+    {
+        "id": "a8c02d41.36d25",
+        "type": "function",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Color Mapping",
+        "func": "switch (msg.payload) {\n\ncase \"Operational\" : \n    msg.color = \"lime\";\n    msg.payload = flow.get(\"up_time\");\n    break;\n   \ncase \"Stopped\" : \n    msg.color = \"red\";\n    msg.payload = flow.get(\"down_time\");\n    break;\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1040,
+        "y": 540,
+        "wires": [
+            [
+                "3731e40b.5ff0fc"
+            ]
+        ]
+    },
+    {
+        "id": "843a5c09.22e03",
+        "type": "join",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "4",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 370,
+        "y": 900,
+        "wires": [
+            [
+                "c1bea05e.1c439"
+            ]
+        ]
+    },
+    {
+        "id": "3a5618e3.94c228",
+        "type": "ui_toast",
+        "z": "20bcaac1.c4bfc6",
+        "position": "dialog",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 1,
+        "ok": "OK",
+        "cancel": "Cancel",
+        "raw": false,
+        "topic": "RESET",
+        "name": "",
+        "x": 270,
+        "y": 300,
+        "wires": [
+            [
+                "b02f1869.2bf6b8"
+            ]
+        ]
+    },
+    {
+        "id": "b02f1869.2bf6b8",
+        "type": "switch",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "OK",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 410,
+        "y": 300,
+        "wires": [
+            [
+                "ed366764.4e77c8"
+            ]
+        ]
+    },
+    {
+        "id": "a4e66f54.2a8ca",
+        "type": "ui_toast",
+        "z": "20bcaac1.c4bfc6",
+        "position": "dialog",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 1,
+        "ok": "OK",
+        "cancel": "Cancel",
+        "raw": false,
+        "topic": "STOP",
+        "name": "",
+        "x": 270,
+        "y": 420,
+        "wires": [
+            [
+                "15e579a.9aa8a86"
+            ]
+        ]
+    },
+    {
+        "id": "15e579a.9aa8a86",
+        "type": "switch",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "OK",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 410,
+        "y": 420,
+        "wires": [
+            [
+                "811c1c12.0a812"
+            ]
+        ]
+    },
+    {
+        "id": "b75c9805.22ee28",
+        "type": "ui_toast",
+        "z": "20bcaac1.c4bfc6",
+        "position": "dialog",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 1,
+        "ok": "OK",
+        "cancel": "Cancel",
+        "raw": false,
+        "topic": "START",
+        "name": "",
+        "x": 270,
+        "y": 540,
+        "wires": [
+            [
+                "68ae23b1.77b79c"
+            ]
+        ]
+    },
+    {
+        "id": "68ae23b1.77b79c",
+        "type": "switch",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "OK",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 410,
+        "y": 540,
+        "wires": [
+            [
+                "e496fbf3.3ce358"
+            ]
+        ]
+    },
+    {
+        "id": "bc9a57a7.839ba8",
+        "type": "ui_text",
+        "z": "20bcaac1.c4bfc6",
+        "group": "329524d.05e8cdc",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Production #:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1370,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "ed366764.4e77c8",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "RESET",
+        "links": [
+            "73cdd43c.25b62c",
+            "5160928a.56307c",
+            "144b5b14.5cef55",
+            "4c7891d0.79827",
+            "42556a39.5a7fb4"
+        ],
+        "x": 495,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "811c1c12.0a812",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "STOP",
+        "links": [
+            "ed7d894e.bd1d88",
+            "144b5b14.5cef55",
+            "6b7fb686.73e928",
+            "73cdd43c.25b62c",
+            "5160928a.56307c"
+        ],
+        "x": 495,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "e496fbf3.3ce358",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "START",
+        "links": [
+            "9c0bb86c.a58a78",
+            "23f68dd1.546fd2",
+            "d6c0c8e1.5522b8",
+            "def81107.e80f7"
+        ],
+        "x": 495,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "4c7891d0.79827",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "/data/battery_plant/rfid.csv",
+        "links": [
+            "ed366764.4e77c8"
+        ],
+        "x": 595,
+        "y": 220,
+        "wires": [
+            [
+                "da71bb00.105b88"
+            ]
+        ]
+    },
+    {
+        "id": "6b7fb686.73e928",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "+1 total stops",
+        "links": [
+            "811c1c12.0a812"
+        ],
+        "x": 595,
+        "y": 340,
+        "wires": [
+            [
+                "f9fc1e5a.5d90f"
+            ]
+        ]
+    },
+    {
+        "id": "144b5b14.5cef55",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Stopped + Down Time",
+        "links": [
+            "ed366764.4e77c8",
+            "811c1c12.0a812"
+        ],
+        "x": 595,
+        "y": 380,
+        "wires": [
+            [
+                "c132fb0c.1f7918"
+            ]
+        ]
+    },
+    {
+        "id": "ed7d894e.bd1d88",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Battery Plant Not Operational!",
+        "links": [
+            "811c1c12.0a812",
+            "2c160ad7.611946",
+            "b168611b.b9799",
+            "cdd755b1.d088c8",
+            "e0384077.2d375",
+            "d15d4d0e.63e38"
+        ],
+        "x": 935,
+        "y": 420,
+        "wires": [
+            [
+                "582292eb.766d9c"
+            ]
+        ]
+    },
+    {
+        "id": "23f68dd1.546fd2",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Battery Plant Operational!",
+        "links": [
+            "e496fbf3.3ce358"
+        ],
+        "x": 935,
+        "y": 500,
+        "wires": [
+            [
+                "c0391f86.f24e3"
+            ]
+        ]
+    },
+    {
+        "id": "9c0bb86c.a58a78",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Operational + Up Time",
+        "links": [
+            "e496fbf3.3ce358"
+        ],
+        "x": 595,
+        "y": 540,
+        "wires": [
+            [
+                "9baca359.faa87"
+            ]
+        ]
+    },
+    {
+        "id": "5160928a.56307c",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "DISABLE STOP",
+        "links": [
+            "ed366764.4e77c8",
+            "811c1c12.0a812",
+            "47db7703.878d78"
+        ],
+        "x": 35,
+        "y": 340,
+        "wires": [
+            [
+                "82b34bc1.52bfc8"
+            ]
+        ]
+    },
+    {
+        "id": "def81107.e80f7",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "ENABLE STOP",
+        "links": [
+            "e496fbf3.3ce358"
+        ],
+        "x": 35,
+        "y": 380,
+        "wires": [
+            [
+                "98d8377a.cf07e8"
+            ]
+        ]
+    },
+    {
+        "id": "d6c0c8e1.5522b8",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "DISABLE START",
+        "links": [
+            "e496fbf3.3ce358",
+            "da6f7130.02e84"
+        ],
+        "x": 35,
+        "y": 460,
+        "wires": [
+            [
+                "83750af4.089e18"
+            ]
+        ]
+    },
+    {
+        "id": "73cdd43c.25b62c",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "ENABLE START",
+        "links": [
+            "ed366764.4e77c8",
+            "811c1c12.0a812"
+        ],
+        "x": 35,
+        "y": 500,
+        "wires": [
+            [
+                "bd03df1e.84f72"
+            ]
+        ]
+    },
+    {
+        "id": "e0082d4.c142fd",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "RESET BUTTON",
+        "links": [],
+        "x": 35,
+        "y": 300,
+        "wires": [
+            [
+                "2bd70575.90a4fa"
+            ]
+        ]
+    },
+    {
+        "id": "c09b90bb.ac291",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "STOP BUTTON",
+        "links": [
+            "240100cb.db5a6",
+            "f5b97e60.1ee3",
+            "725ae06a.5216c"
+        ],
+        "x": 35,
+        "y": 420,
+        "wires": [
+            [
+                "5cb9e706.b68d08"
+            ]
+        ]
+    },
+    {
+        "id": "c4661edb.e8454",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "START BUTTON",
+        "links": [
+            "473745ea.7a581c",
+            "a47fa83e.66d548",
+            "459d2805.ff9558"
+        ],
+        "x": 35,
+        "y": 540,
+        "wires": [
+            [
+                "1675c33d.bc911d"
+            ]
+        ]
+    },
+    {
+        "id": "240100cb.db5a6",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "DISABLE STOP",
+        "links": [
+            "c09b90bb.ac291"
+        ],
+        "x": 275,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "f5b97e60.1ee3",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "ENABLE STOP",
+        "links": [
+            "c09b90bb.ac291"
+        ],
+        "x": 275,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "473745ea.7a581c",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "DISABLE START",
+        "links": [
+            "c4661edb.e8454"
+        ],
+        "x": 275,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "a47fa83e.66d548",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "ENABLE START",
+        "links": [
+            "c4661edb.e8454"
+        ],
+        "x": 275,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "77e239b6.2af098",
+        "type": "inject",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 400,
+        "y": 260,
+        "wires": [
+            [
+                "ed366764.4e77c8"
+            ]
+        ]
+    },
+    {
+        "id": "f31ee30e.5d0c",
+        "type": "inject",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 400,
+        "y": 380,
+        "wires": [
+            [
+                "811c1c12.0a812"
+            ]
+        ]
+    },
+    {
+        "id": "653d7980.cdfa18",
+        "type": "inject",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 400,
+        "y": 500,
+        "wires": [
+            [
+                "e496fbf3.3ce358"
+            ]
+        ]
+    },
+    {
+        "id": "2a8cd0c5.f7534",
+        "type": "ui_template",
+        "z": "20bcaac1.c4bfc6",
+        "group": "ed1d55ca.3ebb28",
+        "name": "Search Table",
+        "order": 2,
+        "width": "14",
+        "height": 2,
+        "format": "<table style=\"width:100%\">\n  <tr>\n    <th style=\"text-align:center\">Production Number</th> \n    <th style=\"text-align:center\">RFID UID</th>\n    <th style=\"text-align:center\">Timestamp</th> \n    <th style=\"text-align:center\">Last Checkpoint</th>\n  </tr>\n  <tr ng-repeat=\"x in msg.payload | limitTo:1\">\n    <td style=\"text-align:center\">{{msg.payload[$index].ProductionNum}}</td>\n    <td style=\"text-align:center\">{{msg.payload[$index].RFIDuid}}</td>\n    <td style=\"text-align:center\">{{msg.payload[$index].Timestamp}}</td> \n    <td style=\"text-align:center\">{{msg.payload[$index].Checkpoint}}</td>\n  </tr>\n</table>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 1370,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7ba942f.fa272bc",
+        "type": "ui_text_input",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "label": "Production Number",
+        "tooltip": "",
+        "group": "ed1d55ca.3ebb28",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "mode": "number",
+        "delay": "0",
+        "topic": "",
+        "x": 150,
+        "y": 640,
+        "wires": [
+            [
+                "5b9412e3.0b459c"
+            ]
+        ]
+    },
+    {
+        "id": "7d4339a5.65e7b8",
+        "type": "sqlite",
+        "z": "20bcaac1.c4bfc6",
+        "mydb": "98f8377c.7eed38",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "SQL",
+        "x": 550,
+        "y": 640,
+        "wires": [
+            [
+                "998da12a.6b6f6"
+            ]
+        ]
+    },
+    {
+        "id": "5b9412e3.0b459c",
+        "type": "function",
+        "z": "20bcaac1.c4bfc6",
+        "name": "SELECT Data",
+        "func": "var newMsg = {\n \"topic\": \"SELECT * FROM Assembly WHERE ProductionNum=\" + msg.payload + \" ORDER BY timestamp DESC LIMIT 1;\"\n}\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 400,
+        "y": 640,
+        "wires": [
+            [
+                "7d4339a5.65e7b8"
+            ]
+        ]
+    },
+    {
+        "id": "89eb8d63.41365",
+        "type": "sqlite",
+        "z": "20bcaac1.c4bfc6",
+        "mydb": "98f8377c.7eed38",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "SQL",
+        "x": 370,
+        "y": 1820,
+        "wires": [
+            [
+                "4597e7a.194fa18"
+            ]
+        ]
+    },
+    {
+        "id": "1e4cc267.7240be",
+        "type": "function",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Write to SQL",
+        "func": "var ProductionNum = (msg.payload[0]);\nvar RFIDuid = msg.payload[1];\nvar Time = msg.payload[2];\nvar Checkpoint = (msg.payload[3]);\nvar newMsg = {\n \"topic\": \"INSERT INTO Assembly VALUES (\" + ProductionNum + \", '\" + RFIDuid + \"', '\" + Time + \"', '\" + Checkpoint + \"')\"\n};\nvar newMsg1 = {\n \"topic\": \"INSERT INTO Offline VALUES (\" + ProductionNum + \", '\" + RFIDuid + \"', '\" + Time + \"', '\" + Checkpoint + \"')\"\n};\nreturn [ [ newMsg, newMsg1 ] ];",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 1780,
+        "wires": [
+            [
+                "89eb8d63.41365"
+            ]
+        ]
+    },
+    {
+        "id": "da71bb00.105b88",
+        "type": "function",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Clear Table",
+        "func": "flow.set(\"total_battery_start\", 0);\n\nflow.set(\"total_battery_offline\", 0);\n\nflow.set(\"total_battery_finalok\", 0);\n\nflow.set(\"total_stop_count\", 0);\n\nflow.set('productionNum',6200000);\n//Sets productionNum flow variable to the default 6200000\nvar newMsg = {\n \"topic\": \"DELETE FROM Assembly\"\n}\n//Sends SQL query as message topic to delete all entires from the Assembly Table\nvar newMsg1 = {\n \"topic\": \"DELETE FROM Checkpoint1\"\n}\n//Sends SQL query as message topic to delete all entires from the Checkpoint1 Table\nvar newMsg2 = {\n \"topic\": \"DELETE FROM Checkpoint2\"\n}\nvar newMsg3 = {\n \"topic\": \"DELETE FROM Checkpoint3\"\n}\nvar newMsg4 = {\n \"topic\": \"DELETE FROM Offline\"\n}\nvar newMsg5 = {\n \"topic\": \"DELETE FROM FinalOK\"\n}\n//Sends SQL query as message topic to delete all entires from the Checkpoint2 Table\nreturn [ [newMsg, newMsg1, newMsg2, newMsg3, newMsg4, newMsg5] ];\n//Sends all messages to their respective node outputs",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 710,
+        "y": 220,
+        "wires": [
+            [
+                "7e5ac303.be0e7c"
+            ]
+        ]
+    },
+    {
+        "id": "f27310a7.92c66",
+        "type": "inject",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Scan RFID",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 130,
+        "y": 900,
+        "wires": [
+            [
+                "a03d703f.f31f9"
+            ]
+        ]
+    },
+    {
+        "id": "998da12a.6b6f6",
+        "type": "switch",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 690,
+        "y": 640,
+        "wires": [
+            [
+                "298e52bb.f4987e"
+            ],
+            [
+                "2a8cd0c5.f7534"
+            ]
+        ]
+    },
+    {
+        "id": "151b15b7.13362a",
+        "type": "ui_toast",
+        "z": "20bcaac1.c4bfc6",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "topic": "",
+        "name": "Search Notification",
+        "x": 1390,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "298e52bb.f4987e",
+        "type": "function",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Invalid Production Number",
+        "func": "msg.topic = \"Invalid Production Number!\";\nmsg.payload = \"Please choose a different number\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1080,
+        "y": 620,
+        "wires": [
+            [
+                "151b15b7.13362a"
+            ]
+        ]
+    },
+    {
+        "id": "ddeb6f5f.54065",
+        "type": "delay",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "pauseType": "random",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "2",
+        "randomUnits": "minutes",
+        "drop": false,
+        "x": 120,
+        "y": 1740,
+        "wires": [
+            [
+                "2b1eff16.bbe96"
+            ]
+        ]
+    },
+    {
+        "id": "d8b2662.2391c98",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "+1 Total Battery Count Out",
+        "links": [
+            "b5405fe1.ed353",
+            "bfda018a.5b253",
+            "df4d54b0.5c9ea8",
+            "ddacc0.d867234",
+            "5fd39908.677c88"
+        ],
+        "x": 955,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "dee70ba3.c46208",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Assign Time Stamp Intial In",
+        "links": [
+            "65bcabb5.07f9f4",
+            "def4ba50.9d6468"
+        ],
+        "x": 1075,
+        "y": 900,
+        "wires": [
+            [
+                "e68da43a.b66598"
+            ]
+        ]
+    },
+    {
+        "id": "65bcabb5.07f9f4",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Assign Time Stamp Intial Out",
+        "links": [
+            "dee70ba3.c46208"
+        ],
+        "x": 955,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "6afb109f.474d2",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Checkpoint 1 Join In",
+        "links": [
+            "6865aad4.d8f464"
+        ],
+        "x": 275,
+        "y": 900,
+        "wires": [
+            [
+                "843a5c09.22e03"
+            ]
+        ]
+    },
+    {
+        "id": "e5dff6bc.1bbc18",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Assign ProductionNum Intial In",
+        "links": [
+            "3057af87.f8fe",
+            "def4ba50.9d6468"
+        ],
+        "x": 1075,
+        "y": 820,
+        "wires": [
+            [
+                "bc9a57a7.839ba8"
+            ]
+        ]
+    },
+    {
+        "id": "3057af87.f8fe",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Assign ProductionNum Intial Out",
+        "links": [
+            "e5dff6bc.1bbc18"
+        ],
+        "x": 955,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "6b6735cf.8817cc",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "RFID Uid Intital In",
+        "links": [
+            "7d2e5ae3.989554",
+            "def4ba50.9d6468"
+        ],
+        "x": 1075,
+        "y": 860,
+        "wires": [
+            [
+                "6bf37e69.b37f3"
+            ]
+        ]
+    },
+    {
+        "id": "7d2e5ae3.989554",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "RFID Uid Intital Out",
+        "links": [
+            "51661274.afa30c",
+            "6b6735cf.8817cc"
+        ],
+        "x": 955,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "2b1eff16.bbe96",
+        "type": "ui_button",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "group": "8b9e50c3.ba469",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "label": "Scan RFID",
+        "tooltip": "Scan RFID Tag on Battery Module",
+        "color": "",
+        "bgcolor": "blue",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "x": 130,
+        "y": 1700,
+        "wires": [
+            [
+                "cac4231d.d3fa3"
+            ]
+        ]
+    },
+    {
+        "id": "2114741a.cbf28c",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "aa495a56.433068",
+            "9d8caf23.eaa62"
+        ],
+        "x": 955,
+        "y": 1780,
+        "wires": []
+    },
+    {
+        "id": "ac06bfd0.fb9a4",
+        "type": "join",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "4",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 370,
+        "y": 1740,
+        "wires": [
+            [
+                "1e4cc267.7240be"
+            ]
+        ]
+    },
+    {
+        "id": "b2ec4118.b3e71",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Join Checkpoint 2",
+        "links": [
+            "bd2b9a01.b1a9e8",
+            "d5480293.fc6c8"
+        ],
+        "x": 275,
+        "y": 1740,
+        "wires": [
+            [
+                "ac06bfd0.fb9a4"
+            ]
+        ]
+    },
+    {
+        "id": "1d48010.20986ff",
+        "type": "sqlite",
+        "z": "20bcaac1.c4bfc6",
+        "mydb": "98f8377c.7eed38",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "SQL",
+        "x": 370,
+        "y": 980,
+        "wires": [
+            [
+                "dd01bb6c.619188"
+            ]
+        ]
+    },
+    {
+        "id": "c1bea05e.1c439",
+        "type": "function",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Write to SQL",
+        "func": "var ProductionNum = (msg.payload[0]);\nvar RFIDuid = msg.payload[1];\nvar Time = msg.payload[2];\nvar Checkpoint = (msg.payload[3]);\nvar newMsg = {\n \"topic\": \"INSERT INTO Checkpoint1 VALUES (\" + ProductionNum + \", '\" + RFIDuid + \"', '\" + Time + \"', '\" + Checkpoint + \"')\"\n};\nvar newMsg1 = {\n \"topic\": \"INSERT INTO Assembly VALUES (\" + ProductionNum + \", '\" + RFIDuid + \"', '\" + Time + \"', '\" + Checkpoint + \"')\"\n}\n\nreturn [ [ newMsg, newMsg1 ] ];",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 940,
+        "wires": [
+            [
+                "1d48010.20986ff"
+            ]
+        ]
+    },
+    {
+        "id": "bc5dec3b.e858f",
+        "type": "switch",
+        "z": "20bcaac1.c4bfc6",
+        "name": "current status",
+        "property": "current_status",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "Operational",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Operational",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 140,
+        "y": 820,
+        "wires": [
+            [
+                "2c160ad7.611946"
+            ],
+            [
+                "68456945.ed50a8"
+            ]
+        ]
+    },
+    {
+        "id": "cac4231d.d3fa3",
+        "type": "switch",
+        "z": "20bcaac1.c4bfc6",
+        "name": "current status",
+        "property": "current_status",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "Operational",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Operational",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 140,
+        "y": 1660,
+        "wires": [
+            [
+                "b168611b.b9799"
+            ],
+            [
+                "eacf07aa.4afc48"
+            ]
+        ]
+    },
+    {
+        "id": "2c160ad7.611946",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "ed7d894e.bd1d88"
+        ],
+        "x": 275,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "b168611b.b9799",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "ed7d894e.bd1d88"
+        ],
+        "x": 275,
+        "y": 1640,
+        "wires": []
+    },
+    {
+        "id": "eacf07aa.4afc48",
+        "type": "change",
+        "z": "20bcaac1.c4bfc6",
+        "name": "query checkpoint3 for rfiduid",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "SELECT RFIDuid, ProductionNum FROM Checkpoint3 ORDER BY ProductionNum ASC LIMIT 1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 440,
+        "y": 1660,
+        "wires": [
+            [
+                "91ab0022.7d32"
+            ]
+        ]
+    },
+    {
+        "id": "91ab0022.7d32",
+        "type": "sqlite",
+        "z": "20bcaac1.c4bfc6",
+        "mydb": "98f8377c.7eed38",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "SQL",
+        "x": 370,
+        "y": 1700,
+        "wires": [
+            [
+                "901e4259.7c1f3"
+            ]
+        ]
+    },
+    {
+        "id": "77a59031.c5493",
+        "type": "function",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Delete query",
+        "func": "var total_battery_offline = flow.get(\"total_battery_offline\")||0;\n\ntotal_battery_offline = total_battery_offline + 1;\n\nflow.set(\"total_battery_offline\", total_battery_offline);\n\nvar newMsg = { \n    \"topic\": \"DELETE FROM Checkpoint3 WHERE ProductionNum=\" + msg.payload[0].ProductionNum\n};\nvar newMsg1 = { payload:msg.payload[0].ProductionNum };\nvar newMsg2 = { payload:msg.payload[0].RFIDuid };\nvar newMsg3 = { payload:flow.get(\"current_time\") };\nvar newMsg4 = { payload:\"Offline\" };\nvar newMsg5 = { payload:flow.get(\"total_battery_offline\") };\nreturn [newMsg, newMsg1, newMsg2, newMsg3, [ newMsg1, newMsg2, newMsg3, newMsg4 ], newMsg5 ];",
+        "outputs": 6,
+        "noerr": 0,
+        "x": 710,
+        "y": 1740,
+        "wires": [
+            [
+                "243f6b8d.2a3894"
+            ],
+            [
+                "463fa614.16c7e8"
+            ],
+            [
+                "bd826e16.11e16"
+            ],
+            [
+                "2114741a.cbf28c"
+            ],
+            [
+                "d5480293.fc6c8"
+            ],
+            [
+                "280cd798.a22cb8"
+            ]
+        ]
+    },
+    {
+        "id": "b48ec1d4.5b28",
+        "type": "ui_text",
+        "z": "20bcaac1.c4bfc6",
+        "group": "8b9e50c3.ba469",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "ID:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1350,
+        "y": 1740,
+        "wires": []
+    },
+    {
+        "id": "a4df28f1.130208",
+        "type": "ui_text",
+        "z": "20bcaac1.c4bfc6",
+        "group": "8b9e50c3.ba469",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Time Scanned:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1380,
+        "y": 1780,
+        "wires": []
+    },
+    {
+        "id": "bd29b86f.225238",
+        "type": "ui_text",
+        "z": "20bcaac1.c4bfc6",
+        "group": "8b9e50c3.ba469",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Production #:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1370,
+        "y": 1700,
+        "wires": []
+    },
+    {
+        "id": "9d8caf23.eaa62",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Time Output CP2",
+        "links": [
+            "2114741a.cbf28c",
+            "def4ba50.9d6468"
+        ],
+        "x": 1075,
+        "y": 1780,
+        "wires": [
+            [
+                "188d88f1.83e9d7"
+            ]
+        ]
+    },
+    {
+        "id": "21e86108.eee8ce",
+        "type": "comment",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Search Production Number",
+        "info": "",
+        "x": 170,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "f3c7a355.46067",
+        "type": "comment",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Checkpoint 1",
+        "info": "",
+        "x": 130,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "502eb59c.ee3cfc",
+        "type": "comment",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Offline",
+        "info": "",
+        "x": 110,
+        "y": 1620,
+        "wires": []
+    },
+    {
+        "id": "13b4107a.82d12",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "bd826e16.11e16",
+            "def4ba50.9d6468"
+        ],
+        "x": 1075,
+        "y": 1740,
+        "wires": [
+            [
+                "b48ec1d4.5b28"
+            ]
+        ]
+    },
+    {
+        "id": "18474cc9.d4c993",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "463fa614.16c7e8",
+            "def4ba50.9d6468"
+        ],
+        "x": 1075,
+        "y": 1700,
+        "wires": [
+            [
+                "bd29b86f.225238"
+            ]
+        ]
+    },
+    {
+        "id": "bd826e16.11e16",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "13b4107a.82d12"
+        ],
+        "x": 955,
+        "y": 1740,
+        "wires": []
+    },
+    {
+        "id": "463fa614.16c7e8",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "18474cc9.d4c993"
+        ],
+        "x": 955,
+        "y": 1700,
+        "wires": []
+    },
+    {
+        "id": "901e4259.7c1f3",
+        "type": "switch",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 490,
+        "y": 1700,
+        "wires": [
+            [
+                "bbc9d23e.00ddf"
+            ],
+            [
+                "77a59031.c5493"
+            ]
+        ]
+    },
+    {
+        "id": "42556a39.5a7fb4",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "ed366764.4e77c8"
+        ],
+        "x": 595,
+        "y": 300,
+        "wires": [
+            [
+                "75ea839.bf99a7c"
+            ]
+        ]
+    },
+    {
+        "id": "75ea839.bf99a7c",
+        "type": "change",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Blank Payload",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 300,
+        "wires": [
+            [
+                "def4ba50.9d6468"
+            ]
+        ]
+    },
+    {
+        "id": "def4ba50.9d6468",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Blank payload",
+        "links": [
+            "b5405fe1.ed353",
+            "18474cc9.d4c993",
+            "9d8caf23.eaa62",
+            "e5dff6bc.1bbc18",
+            "5b0145ee.189adc",
+            "13b4107a.82d12",
+            "6b6735cf.8817cc",
+            "dee70ba3.c46208",
+            "534d443c.4a17dc",
+            "bfda018a.5b253",
+            "daefb0d7.60fb",
+            "887da3f0.81b86",
+            "d3c59e02.5183a",
+            "a8e70ec5.63767",
+            "df4d54b0.5c9ea8",
+            "b1321a28.56a828",
+            "85b0fe12.f4854",
+            "3808897a.2d1296",
+            "ddacc0.d867234",
+            "3a469786.9f7cf8",
+            "d1c738e4.127568",
+            "a1f3294b.8d3ca8",
+            "79fafaae.f955d4",
+            "9760b84f.8927c8",
+            "a1bbe8fe.93c8b8",
+            "9a330daf.d553c",
+            "e488c1ca.fdbcf",
+            "e149fea2.f55f7"
+        ],
+        "x": 875,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "c32f26c1.35d6c8",
+        "type": "moment",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Current Time",
+        "topic": "",
+        "input": "payload",
+        "inputType": "msg",
+        "inTz": "America/Chicago",
+        "adjAmount": "0",
+        "adjType": "minutes",
+        "adjDir": "subtract",
+        "format": "dddd, MMMM Do, HH:mm:ss",
+        "locale": "C",
+        "output": "payload",
+        "outputType": "msg",
+        "outTz": "America/Chicago",
+        "x": 1210,
+        "y": 20,
+        "wires": [
+            [
+                "72184fa7.d8d33"
+            ]
+        ]
+    },
+    {
+        "id": "3731e40b.5ff0fc",
+        "type": "moment",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Current Time",
+        "topic": "",
+        "input": "payload",
+        "inputType": "msg",
+        "inTz": "America/Chicago",
+        "adjAmount": "0",
+        "adjType": "minutes",
+        "adjDir": "subtract",
+        "format": "dddd, MMMM Do, HH:mm:ss",
+        "locale": "C",
+        "output": "payload",
+        "outputType": "msg",
+        "outTz": "America/Chicago",
+        "x": 1210,
+        "y": 540,
+        "wires": [
+            [
+                "f31c0b4c.e68e78"
+            ]
+        ]
+    },
+    {
+        "id": "188d88f1.83e9d7",
+        "type": "moment",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Current Time",
+        "topic": "",
+        "input": "payload",
+        "inputType": "msg",
+        "inTz": "America/Chicago",
+        "adjAmount": "0",
+        "adjType": "minutes",
+        "adjDir": "subtract",
+        "format": "dddd, MMMM Do, HH:mm:ss",
+        "locale": "C",
+        "output": "payload",
+        "outputType": "msg",
+        "outTz": "America/Chicago",
+        "x": 1210,
+        "y": 1780,
+        "wires": [
+            [
+                "a4df28f1.130208"
+            ]
+        ]
+    },
+    {
+        "id": "e68da43a.b66598",
+        "type": "moment",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Current Time",
+        "topic": "",
+        "input": "payload",
+        "inputType": "msg",
+        "inTz": "America/Chicago",
+        "adjAmount": "0",
+        "adjType": "minutes",
+        "adjDir": "subtract",
+        "format": "dddd, MMMM Do, HH:mm:ss",
+        "locale": "C",
+        "output": "payload",
+        "outputType": "msg",
+        "outTz": "America/Chicago",
+        "x": 1210,
+        "y": 900,
+        "wires": [
+            [
+                "7bc10ffd.a2a1f"
+            ]
+        ]
+    },
+    {
+        "id": "534d443c.4a17dc",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Total Stops",
+        "links": [
+            "def4ba50.9d6468",
+            "bb039dfd.ab6b5",
+            "d367e91b.efb678"
+        ],
+        "x": 935,
+        "y": 340,
+        "wires": [
+            [
+                "aae23406.c85358"
+            ]
+        ]
+    },
+    {
+        "id": "d367e91b.efb678",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Total Stop Count",
+        "links": [
+            "534d443c.4a17dc"
+        ],
+        "x": 875,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "e6c8436a.9186c",
+        "type": "ui_toast",
+        "z": "20bcaac1.c4bfc6",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "topic": "",
+        "name": "",
+        "x": 1390,
+        "y": 1620,
+        "wires": []
+    },
+    {
+        "id": "c7abbe4a.0064e",
+        "type": "function",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Invalid RFIDuid",
+        "func": "msg.topic = \"This unit has not completed the previous checkpoint!\";\nmsg.payload = \"Please return to Checkpoint 3\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1200,
+        "y": 1620,
+        "wires": [
+            [
+                "e6c8436a.9186c"
+            ]
+        ]
+    },
+    {
+        "id": "ff539377.863b5",
+        "type": "inject",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Current Status",
+        "topic": "",
+        "payload": "current_status",
+        "payloadType": "flow",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 140,
+        "y": 120,
+        "wires": [
+            [
+                "ee184358.50351",
+                "62ddc8ad.8aff08"
+            ]
+        ]
+    },
+    {
+        "id": "ee184358.50351",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Inject Current Status",
+        "links": [
+            "34273a3d.4fdf56",
+            "ee875125.f5e48"
+        ],
+        "x": 275,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "34273a3d.4fdf56",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Current Status Output",
+        "links": [
+            "ee184358.50351",
+            "9ddbc52e.b989e8",
+            "19b7106b.2fd0d"
+        ],
+        "x": 935,
+        "y": 380,
+        "wires": [
+            [
+                "2cb27017.d6da"
+            ]
+        ]
+    },
+    {
+        "id": "ee875125.f5e48",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Time Since Output",
+        "links": [
+            "ee184358.50351",
+            "9ddbc52e.b989e8",
+            "19b7106b.2fd0d"
+        ],
+        "x": 935,
+        "y": 540,
+        "wires": [
+            [
+                "a8c02d41.36d25"
+            ]
+        ]
+    },
+    {
+        "id": "9ddbc52e.b989e8",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "34273a3d.4fdf56",
+            "ee875125.f5e48"
+        ],
+        "x": 875,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "19b7106b.2fd0d",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "34273a3d.4fdf56",
+            "ee875125.f5e48"
+        ],
+        "x": 875,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "e263dfa4.96563",
+        "type": "inject",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Stop Count",
+        "topic": "",
+        "payload": "total_stop_count",
+        "payloadType": "flow",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 130,
+        "y": 180,
+        "wires": [
+            [
+                "bb039dfd.ab6b5"
+            ]
+        ]
+    },
+    {
+        "id": "bb039dfd.ab6b5",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Inject Stop Count",
+        "links": [
+            "534d443c.4a17dc"
+        ],
+        "x": 275,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "80e0fc52.0ca06",
+        "type": "inject",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Batteries Started",
+        "topic": "",
+        "payload": "total_battery_start",
+        "payloadType": "flow",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 150,
+        "y": 220,
+        "wires": [
+            [
+                "c156e9f8.a33cc8"
+            ]
+        ]
+    },
+    {
+        "id": "c156e9f8.a33cc8",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Inject Batteries Started",
+        "links": [
+            "b5405fe1.ed353"
+        ],
+        "x": 275,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "983b2b32.830d18",
+        "type": "inject",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Batteries Finished",
+        "topic": "",
+        "payload": "total_battery_finalok",
+        "payloadType": "flow",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 150,
+        "y": 260,
+        "wires": [
+            [
+                "dbf97692.257ae8"
+            ]
+        ]
+    },
+    {
+        "id": "dbf97692.257ae8",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Inject Battery Finished",
+        "links": [
+            "5b0145ee.189adc",
+            "a8e70ec5.63767"
+        ],
+        "x": 275,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "da6f7130.02e84",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "3c373fc6.8e3ae",
+            "d6c0c8e1.5522b8"
+        ],
+        "x": 395,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "47db7703.878d78",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "3c373fc6.8e3ae",
+            "5160928a.56307c"
+        ],
+        "x": 395,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "62ddc8ad.8aff08",
+        "type": "switch",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "property": "current_status",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Operational",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Stopped",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 310,
+        "y": 100,
+        "wires": [
+            [
+                "da6f7130.02e84"
+            ],
+            [
+                "47db7703.878d78"
+            ]
+        ]
+    },
+    {
+        "id": "24b09594.6742ea",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "1 Second Refresh",
+        "links": [
+            "7dde121c.20507c"
+        ],
+        "x": 275,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "7dde121c.20507c",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "24b09594.6742ea"
+        ],
+        "x": 935,
+        "y": 20,
+        "wires": [
+            [
+                "eb1d6b47.bbd008"
+            ]
+        ]
+    },
+    {
+        "id": "2eee7544.25d1ea",
+        "type": "uibuilder",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "topic": "",
+        "url": "a1_map",
+        "fwdInMessages": false,
+        "allowScripts": false,
+        "allowStyles": false,
+        "copyIndex": true,
+        "showfolder": false,
+        "x": 1080,
+        "y": 120,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "e1ae2c9b.a2a62",
+        "type": "uibuilder",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "topic": "",
+        "url": "a2_map",
+        "fwdInMessages": false,
+        "allowScripts": false,
+        "allowStyles": false,
+        "copyIndex": true,
+        "showfolder": false,
+        "x": 1080,
+        "y": 180,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "52a4ed8c.8de374",
+        "type": "inject",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Inject At Start",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 140,
+        "y": 60,
+        "wires": [
+            [
+                "e5def33.5977d1"
+            ]
+        ]
+    },
+    {
+        "id": "a746e675.4cd148",
+        "type": "sqlite",
+        "z": "20bcaac1.c4bfc6",
+        "mydb": "98f8377c.7eed38",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "SQL",
+        "x": 1450,
+        "y": 980,
+        "wires": [
+            [
+                "a1fc3076.7d9fb"
+            ]
+        ]
+    },
+    {
+        "id": "16deb20d.9772ae",
+        "type": "change",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "SELECT ProductionNum FROM Checkpoint1 ORDER BY ProductionNum ASC",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1310,
+        "y": 980,
+        "wires": [
+            [
+                "a746e675.4cd148"
+            ]
+        ]
+    },
+    {
+        "id": "a1fc3076.7d9fb",
+        "type": "ui_template",
+        "z": "20bcaac1.c4bfc6",
+        "group": "329524d.05e8cdc",
+        "name": "Active Checkpoint 1 List",
+        "order": 5,
+        "width": "8",
+        "height": "2",
+        "format": "<table style=\"width:100%\">\n  <tr ng-repeat=\"x in msg.payload\">\n    <td style=\"text-align:center\">{{msg.payload[$index].ProductionNum}}</td>\n  </tr>\n</table>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 1630,
+        "y": 980,
+        "wires": [
+            [
+                "dec9a9f8.a8a728"
+            ]
+        ]
+    },
+    {
+        "id": "9760b84f.8927c8",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Checkpoint 1 Table",
+        "links": [
+            "a2548632.fcb9b8",
+            "def4ba50.9d6468",
+            "dd01bb6c.619188",
+            "e5def33.5977d1"
+        ],
+        "x": 1075,
+        "y": 980,
+        "wires": [
+            [
+                "5efa971a.2334d8"
+            ]
+        ]
+    },
+    {
+        "id": "34aa8f15.e5451",
+        "type": "uibuilder",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "topic": "",
+        "url": "batt_map",
+        "fwdInMessages": false,
+        "allowScripts": false,
+        "allowStyles": false,
+        "copyIndex": true,
+        "showfolder": false,
+        "x": 860,
+        "y": 120,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "73759283.7d539c",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "bbc9d23e.00ddf"
+        ],
+        "x": 1075,
+        "y": 1620,
+        "wires": [
+            [
+                "c7abbe4a.0064e"
+            ]
+        ]
+    },
+    {
+        "id": "bbc9d23e.00ddf",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "73759283.7d539c"
+        ],
+        "x": 955,
+        "y": 1620,
+        "wires": []
+    },
+    {
+        "id": "8d603445.ec7468",
+        "type": "sqlite",
+        "z": "20bcaac1.c4bfc6",
+        "mydb": "98f8377c.7eed38",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "SQL",
+        "x": 1450,
+        "y": 1820,
+        "wires": [
+            [
+                "478c1b4c.72eba4"
+            ]
+        ]
+    },
+    {
+        "id": "b3238661.02ebc8",
+        "type": "change",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "SELECT ProductionNum FROM Offline ORDER BY ProductionNum ASC",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1310,
+        "y": 1820,
+        "wires": [
+            [
+                "8d603445.ec7468"
+            ]
+        ]
+    },
+    {
+        "id": "478c1b4c.72eba4",
+        "type": "ui_template",
+        "z": "20bcaac1.c4bfc6",
+        "group": "8b9e50c3.ba469",
+        "name": "Active Offline List",
+        "order": 5,
+        "width": "8",
+        "height": "2",
+        "format": "<table style=\"width:100%\">\n  <tr ng-repeat=\"x in msg.payload\">\n    <td style=\"text-align:center\">{{msg.payload[$index].ProductionNum}}</td>\n  </tr>\n</table>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 1610,
+        "y": 1820,
+        "wires": [
+            [
+                "e493d1dd.eead1"
+            ]
+        ]
+    },
+    {
+        "id": "e488c1ca.fdbcf",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Offline Table",
+        "links": [
+            "def4ba50.9d6468",
+            "4597e7a.194fa18",
+            "e5def33.5977d1",
+            "9a41853e.0bbec8"
+        ],
+        "x": 1075,
+        "y": 1820,
+        "wires": [
+            [
+                "98281b7c.4e0028"
+            ]
+        ]
+    },
+    {
+        "id": "464d4c3f.0b4ed4",
+        "type": "sqlite",
+        "z": "20bcaac1.c4bfc6",
+        "mydb": "98f8377c.7eed38",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "SQL",
+        "x": 390,
+        "y": 2100,
+        "wires": [
+            [
+                "9a41853e.0bbec8"
+            ]
+        ]
+    },
+    {
+        "id": "87af72b9.084ae",
+        "type": "function",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Write to SQL",
+        "func": "var ProductionNum = (msg.payload[0]);\nvar RFIDuid = msg.payload[1];\nvar Time = msg.payload[2];\nvar Checkpoint = (msg.payload[3]);\nvar newMsg = {\n \"topic\": \"INSERT INTO Assembly VALUES (\" + ProductionNum + \", '\" + RFIDuid + \"', '\" + Time + \"', '\" + Checkpoint + \"')\"\n};\nvar newMsg1 = {\n \"topic\": \"INSERT INTO FinalOK VALUES (\" + ProductionNum + \", '\" + RFIDuid + \"', '\" + Time + \"', '\" + Checkpoint + \"')\"\n};\nreturn [ [ newMsg, newMsg1 ] ];",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 2060,
+        "wires": [
+            [
+                "464d4c3f.0b4ed4"
+            ]
+        ]
+    },
+    {
+        "id": "22339a5c.1a7086",
+        "type": "ui_button",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "group": "d5311607.0b5458",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "label": "Scan RFID",
+        "tooltip": "Scan RFID Tag on Battery Module",
+        "color": "",
+        "bgcolor": "blue",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "x": 130,
+        "y": 1980,
+        "wires": [
+            [
+                "8d3a088a.c989d8"
+            ]
+        ]
+    },
+    {
+        "id": "a03a7f.6a21158",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "daefb0d7.60fb"
+        ],
+        "x": 955,
+        "y": 2060,
+        "wires": []
+    },
+    {
+        "id": "ad42d970.4c6d68",
+        "type": "join",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "4",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 370,
+        "y": 2020,
+        "wires": [
+            [
+                "87af72b9.084ae"
+            ]
+        ]
+    },
+    {
+        "id": "f35a1b61.c74808",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Join Checkpoint 2",
+        "links": [
+            "dd347728.cd2ba8"
+        ],
+        "x": 275,
+        "y": 2020,
+        "wires": [
+            [
+                "ad42d970.4c6d68"
+            ]
+        ]
+    },
+    {
+        "id": "8d3a088a.c989d8",
+        "type": "switch",
+        "z": "20bcaac1.c4bfc6",
+        "name": "current status",
+        "property": "current_status",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "Operational",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Operational",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 140,
+        "y": 1940,
+        "wires": [
+            [
+                "cdd755b1.d088c8"
+            ],
+            [
+                "9b872a37.f0e4d8"
+            ]
+        ]
+    },
+    {
+        "id": "cdd755b1.d088c8",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "ed7d894e.bd1d88"
+        ],
+        "x": 275,
+        "y": 1920,
+        "wires": []
+    },
+    {
+        "id": "9b872a37.f0e4d8",
+        "type": "change",
+        "z": "20bcaac1.c4bfc6",
+        "name": "query offline for rfiduid",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "SELECT ProductionNum, RFIDuid FROM Offline ORDER BY ProductionNum ASC LIMIT 1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 1940,
+        "wires": [
+            [
+                "33114e79.c9a692"
+            ]
+        ]
+    },
+    {
+        "id": "33114e79.c9a692",
+        "type": "sqlite",
+        "z": "20bcaac1.c4bfc6",
+        "mydb": "98f8377c.7eed38",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "SQL",
+        "x": 370,
+        "y": 1980,
+        "wires": [
+            [
+                "89d6c5ad.ffcf58"
+            ]
+        ]
+    },
+    {
+        "id": "b516e8f0.9e9ab8",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "887da3f0.81b86"
+        ],
+        "x": 955,
+        "y": 2020,
+        "wires": []
+    },
+    {
+        "id": "41422ac0.a63d74",
+        "type": "function",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Delete query",
+        "func": "var total_battery_finalok = flow.get(\"total_battery_finalok\")||0;\n\ntotal_battery_finalok = total_battery_finalok + 1;\n\nflow.set(\"total_battery_finalok\", total_battery_finalok);\n\nvar newMsg = { \n    \"topic\": \"DELETE FROM Offline WHERE ProductionNum=\" + msg.payload[0].ProductionNum\n};\nvar newMsg1 = { payload:msg.payload[0].ProductionNum };\nvar newMsg2 = { payload:msg.payload[0].RFIDuid };\nvar newMsg3 = { payload:flow.get(\"current_time\") };\nvar newMsg4 = { payload:\"Final OK\" };\nvar newMsg5 = { payload:flow.get(\"total_battery_finalok\") };\nreturn [newMsg, newMsg1, newMsg2, newMsg3, [ newMsg1, newMsg2, newMsg3, newMsg4 ], newMsg5 ];",
+        "outputs": 6,
+        "noerr": 0,
+        "x": 710,
+        "y": 2020,
+        "wires": [
+            [
+                "733d76ae.d518f8"
+            ],
+            [
+                "446b8026.0ac68"
+            ],
+            [
+                "b516e8f0.9e9ab8"
+            ],
+            [
+                "a03a7f.6a21158"
+            ],
+            [
+                "dd347728.cd2ba8"
+            ],
+            [
+                "33c9b5b3.09462a"
+            ]
+        ]
+    },
+    {
+        "id": "1067c538.92063b",
+        "type": "ui_text",
+        "z": "20bcaac1.c4bfc6",
+        "group": "d5311607.0b5458",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "ID:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1350,
+        "y": 2020,
+        "wires": []
+    },
+    {
+        "id": "2dc6bacc.f20886",
+        "type": "ui_text",
+        "z": "20bcaac1.c4bfc6",
+        "group": "d5311607.0b5458",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Time Scanned:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1380,
+        "y": 2060,
+        "wires": []
+    },
+    {
+        "id": "66ed3699.db9a28",
+        "type": "ui_text",
+        "z": "20bcaac1.c4bfc6",
+        "group": "d5311607.0b5458",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Production #:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1370,
+        "y": 1980,
+        "wires": []
+    },
+    {
+        "id": "daefb0d7.60fb",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Time Output CP2",
+        "links": [
+            "a03a7f.6a21158",
+            "def4ba50.9d6468"
+        ],
+        "x": 1075,
+        "y": 2060,
+        "wires": [
+            [
+                "b244e12b.b9d84"
+            ]
+        ]
+    },
+    {
+        "id": "1b522acc.643e95",
+        "type": "comment",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Final OK",
+        "info": "",
+        "x": 120,
+        "y": 1900,
+        "wires": []
+    },
+    {
+        "id": "887da3f0.81b86",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "def4ba50.9d6468",
+            "b516e8f0.9e9ab8"
+        ],
+        "x": 1075,
+        "y": 2020,
+        "wires": [
+            [
+                "1067c538.92063b"
+            ]
+        ]
+    },
+    {
+        "id": "d3c59e02.5183a",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "def4ba50.9d6468",
+            "446b8026.0ac68"
+        ],
+        "x": 1075,
+        "y": 1980,
+        "wires": [
+            [
+                "66ed3699.db9a28"
+            ]
+        ]
+    },
+    {
+        "id": "446b8026.0ac68",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "d3c59e02.5183a"
+        ],
+        "x": 955,
+        "y": 1980,
+        "wires": []
+    },
+    {
+        "id": "733d76ae.d518f8",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "bb312b05.dd9ae8"
+        ],
+        "x": 955,
+        "y": 1940,
+        "wires": []
+    },
+    {
+        "id": "33c9b5b3.09462a",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "+1 Total Battery Count Out",
+        "links": [
+            "a8e70ec5.63767",
+            "df4d54b0.5c9ea8",
+            "5fd39908.677c88"
+        ],
+        "x": 955,
+        "y": 2140,
+        "wires": []
+    },
+    {
+        "id": "89d6c5ad.ffcf58",
+        "type": "switch",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 490,
+        "y": 1980,
+        "wires": [
+            [
+                "b5beae79.1727b"
+            ],
+            [
+                "41422ac0.a63d74"
+            ]
+        ]
+    },
+    {
+        "id": "b244e12b.b9d84",
+        "type": "moment",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Current Time",
+        "topic": "",
+        "input": "payload",
+        "inputType": "msg",
+        "inTz": "America/Chicago",
+        "adjAmount": "0",
+        "adjType": "minutes",
+        "adjDir": "subtract",
+        "format": "dddd, MMMM Do, HH:mm:ss",
+        "locale": "C",
+        "output": "payload",
+        "outputType": "msg",
+        "outTz": "America/Chicago",
+        "x": 1210,
+        "y": 2060,
+        "wires": [
+            [
+                "2dc6bacc.f20886"
+            ]
+        ]
+    },
+    {
+        "id": "f3090fe1.74d59",
+        "type": "ui_toast",
+        "z": "20bcaac1.c4bfc6",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "topic": "",
+        "name": "",
+        "x": 1390,
+        "y": 1900,
+        "wires": []
+    },
+    {
+        "id": "cd683dfc.6236c",
+        "type": "function",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Invalid RFIDuid",
+        "func": "msg.topic = \"This unit has not completed the previous checkpoint!\";\nmsg.payload = \"Please return to Offline\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1200,
+        "y": 1900,
+        "wires": [
+            [
+                "f3090fe1.74d59"
+            ]
+        ]
+    },
+    {
+        "id": "882180a3.92fab",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "b5beae79.1727b"
+        ],
+        "x": 1075,
+        "y": 1900,
+        "wires": [
+            [
+                "cd683dfc.6236c"
+            ]
+        ]
+    },
+    {
+        "id": "b5beae79.1727b",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "882180a3.92fab"
+        ],
+        "x": 955,
+        "y": 1900,
+        "wires": []
+    },
+    {
+        "id": "dd347728.cd2ba8",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "f35a1b61.c74808"
+        ],
+        "x": 955,
+        "y": 2100,
+        "wires": []
+    },
+    {
+        "id": "633fed9c.1b7884",
+        "type": "sqlite",
+        "z": "20bcaac1.c4bfc6",
+        "mydb": "98f8377c.7eed38",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "SQL",
+        "x": 1450,
+        "y": 2100,
+        "wires": [
+            [
+                "22696064.51123"
+            ]
+        ]
+    },
+    {
+        "id": "1b9b9cae.850973",
+        "type": "change",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "SELECT ProductionNum FROM FinalOK ORDER BY ProductionNum ASC",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1310,
+        "y": 2100,
+        "wires": [
+            [
+                "633fed9c.1b7884"
+            ]
+        ]
+    },
+    {
+        "id": "22696064.51123",
+        "type": "ui_template",
+        "z": "20bcaac1.c4bfc6",
+        "group": "d5311607.0b5458",
+        "name": "Active FinalOK List",
+        "order": 5,
+        "width": "8",
+        "height": "2",
+        "format": "<table style=\"width:100%\">\n  <tr ng-repeat=\"x in msg.payload\">\n    <td style=\"text-align:center\">{{msg.payload[$index].ProductionNum}}</td>\n  </tr>\n</table>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 1610,
+        "y": 2100,
+        "wires": [
+            [
+                "833fb17f.a566e"
+            ]
+        ]
+    },
+    {
+        "id": "e149fea2.f55f7",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Final OK Table",
+        "links": [
+            "def4ba50.9d6468",
+            "e5def33.5977d1",
+            "9a41853e.0bbec8"
+        ],
+        "x": 1075,
+        "y": 2100,
+        "wires": [
+            [
+                "e5a4885f.39a9b8"
+            ]
+        ]
+    },
+    {
+        "id": "e5def33.5977d1",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "9760b84f.8927c8",
+            "e488c1ca.fdbcf",
+            "e149fea2.f55f7",
+            "a54a31fd.817ad",
+            "619e3d01.fd7f74",
+            "df9f5ecd.9349c",
+            "8eac1bce.937948",
+            "a1bbe8fe.93c8b8",
+            "4e3c72a3.e86f3c",
+            "9a330daf.d553c",
+            "c64c5591.8bec18"
+        ],
+        "x": 275,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "d8dbb532.fd84a8",
+        "type": "change",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Create SQL",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "CREATE TABLE Assembly( ProductionNum INT NOT NULL, RFIDuid varchar(255) NOT NULL, Timestamp varchar(255) NOT NULL, Checkpoint varchar(255) NOT NULL)",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 710,
+        "y": 260,
+        "wires": [
+            [
+                "7e5ac303.be0e7c"
+            ]
+        ]
+    },
+    {
+        "id": "a54a31fd.817ad",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "e5def33.5977d1"
+        ],
+        "x": 595,
+        "y": 260,
+        "wires": [
+            [
+                "d8dbb532.fd84a8"
+            ]
+        ]
+    },
+    {
+        "id": "a5efbaa.4b7e348",
+        "type": "change",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Create Checkpoint1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "CREATE TABLE Checkpoint1( ProductionNum INT NOT NULL, RFIDuid varchar(255) NOT NULL, Timestamp varchar(255) NOT NULL, Checkpoint varchar(255) NOT NULL)",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 160,
+        "y": 980,
+        "wires": [
+            [
+                "1d48010.20986ff"
+            ]
+        ]
+    },
+    {
+        "id": "619e3d01.fd7f74",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "e5def33.5977d1"
+        ],
+        "x": 35,
+        "y": 980,
+        "wires": [
+            [
+                "a5efbaa.4b7e348"
+            ]
+        ]
+    },
+    {
+        "id": "be09332d.e47f3",
+        "type": "change",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Create Offline",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "CREATE TABLE Offline( ProductionNum INT NOT NULL, RFIDuid varchar(255) NOT NULL, Timestamp varchar(255) NOT NULL, Checkpoint varchar(255) NOT NULL)",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 140,
+        "y": 1820,
+        "wires": [
+            [
+                "89eb8d63.41365"
+            ]
+        ]
+    },
+    {
+        "id": "df9f5ecd.9349c",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "e5def33.5977d1"
+        ],
+        "x": 35,
+        "y": 1820,
+        "wires": [
+            [
+                "be09332d.e47f3"
+            ]
+        ]
+    },
+    {
+        "id": "910b5e2d.209c4",
+        "type": "change",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Create FinalOK",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "CREATE TABLE FinalOK( ProductionNum INT NOT NULL, RFIDuid varchar(255) NOT NULL, Timestamp varchar(255) NOT NULL, Checkpoint varchar(255) NOT NULL)",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 140,
+        "y": 2100,
+        "wires": [
+            [
+                "464d4c3f.0b4ed4"
+            ]
+        ]
+    },
+    {
+        "id": "8eac1bce.937948",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "e5def33.5977d1"
+        ],
+        "x": 35,
+        "y": 2100,
+        "wires": [
+            [
+                "910b5e2d.209c4"
+            ]
+        ]
+    },
+    {
+        "id": "bb4572c.40f179",
+        "type": "sqlite",
+        "z": "20bcaac1.c4bfc6",
+        "mydb": "98f8377c.7eed38",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "SQL",
+        "x": 370,
+        "y": 1260,
+        "wires": [
+            [
+                "a2548632.fcb9b8"
+            ]
+        ]
+    },
+    {
+        "id": "73cf4198.5c999",
+        "type": "function",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Write to SQL",
+        "func": "var ProductionNum = (msg.payload[0]);\nvar RFIDuid = msg.payload[1];\nvar Time = msg.payload[2];\nvar Checkpoint = (msg.payload[3]);\nvar newMsg = {\n \"topic\": \"INSERT INTO Assembly VALUES (\" + ProductionNum + \", '\" + RFIDuid + \"', '\" + Time + \"', '\" + Checkpoint + \"')\"\n};\nvar newMsg1 = {\n \"topic\": \"INSERT INTO Checkpoint2 VALUES (\" + ProductionNum + \", '\" + RFIDuid + \"', '\" + Time + \"', '\" + Checkpoint + \"')\"\n};\nreturn [ [ newMsg, newMsg1 ] ];",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 1220,
+        "wires": [
+            [
+                "bb4572c.40f179"
+            ]
+        ]
+    },
+    {
+        "id": "bdc0972e.904238",
+        "type": "delay",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "pauseType": "random",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "2",
+        "randomUnits": "minutes",
+        "drop": false,
+        "x": 120,
+        "y": 1180,
+        "wires": [
+            [
+                "fdedeaeb.767798"
+            ]
+        ]
+    },
+    {
+        "id": "fdedeaeb.767798",
+        "type": "ui_button",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "group": "1bafecae.f1dc93",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "label": "Scan RFID",
+        "tooltip": "Scan RFID Tag on Battery Module",
+        "color": "",
+        "bgcolor": "blue",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "x": 130,
+        "y": 1140,
+        "wires": [
+            [
+                "542f7e6b.04e29"
+            ]
+        ]
+    },
+    {
+        "id": "a445aaf2.3aa238",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "bd8b2c49.7cce6",
+            "b1321a28.56a828"
+        ],
+        "x": 955,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "1b721d18.2f5323",
+        "type": "join",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "4",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 370,
+        "y": 1180,
+        "wires": [
+            [
+                "73cf4198.5c999"
+            ]
+        ]
+    },
+    {
+        "id": "fa835f99.0a67e",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Join Checkpoint 2",
+        "links": [
+            "c967572e.7a3d18",
+            "638c9b13.e5a024"
+        ],
+        "x": 275,
+        "y": 1180,
+        "wires": [
+            [
+                "1b721d18.2f5323"
+            ]
+        ]
+    },
+    {
+        "id": "542f7e6b.04e29",
+        "type": "switch",
+        "z": "20bcaac1.c4bfc6",
+        "name": "current status",
+        "property": "current_status",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "Operational",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Operational",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 140,
+        "y": 1100,
+        "wires": [
+            [
+                "e0384077.2d375"
+            ],
+            [
+                "500bf3cb.d1917c"
+            ]
+        ]
+    },
+    {
+        "id": "e0384077.2d375",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "ed7d894e.bd1d88"
+        ],
+        "x": 275,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "500bf3cb.d1917c",
+        "type": "change",
+        "z": "20bcaac1.c4bfc6",
+        "name": "query checkpoint1 for rfiduid",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "SELECT RFIDuid, ProductionNum FROM Checkpoint1 ORDER BY ProductionNum ASC LIMIT 1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 440,
+        "y": 1100,
+        "wires": [
+            [
+                "2d6dc508.61bf0a"
+            ]
+        ]
+    },
+    {
+        "id": "2d6dc508.61bf0a",
+        "type": "sqlite",
+        "z": "20bcaac1.c4bfc6",
+        "mydb": "98f8377c.7eed38",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "SQL",
+        "x": 370,
+        "y": 1140,
+        "wires": [
+            [
+                "d29eb576.fb1638"
+            ]
+        ]
+    },
+    {
+        "id": "77a1d1bb.4b46e",
+        "type": "function",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Delete query",
+        "func": "var newMsg = { \n    \"topic\": \"DELETE FROM Checkpoint1 WHERE ProductionNum=\" + msg.payload[0].ProductionNum\n};\nvar newMsg1 = { payload:msg.payload[0].ProductionNum };\nvar newMsg2 = { payload:msg.payload[0].RFIDuid };\nvar newMsg3 = { payload:flow.get(\"current_time\") };\nvar newMsg4 = { payload:\"Checkpoint 2\" };\nreturn [newMsg, newMsg1, newMsg2, newMsg3, [ newMsg1, newMsg2, newMsg3, newMsg4 ] ];",
+        "outputs": 5,
+        "noerr": 0,
+        "x": 710,
+        "y": 1180,
+        "wires": [
+            [
+                "ceb0e177.13d73"
+            ],
+            [
+                "1b241a24.5bfce6"
+            ],
+            [
+                "1a2d40dd.bcfe1f"
+            ],
+            [
+                "a445aaf2.3aa238"
+            ],
+            [
+                "638c9b13.e5a024"
+            ]
+        ]
+    },
+    {
+        "id": "d15b2f1d.f6a5b",
+        "type": "ui_text",
+        "z": "20bcaac1.c4bfc6",
+        "group": "1bafecae.f1dc93",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "ID:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1350,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "76a0e0e2.95789",
+        "type": "ui_text",
+        "z": "20bcaac1.c4bfc6",
+        "group": "1bafecae.f1dc93",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Time Scanned:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1380,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "38341366.45ee8c",
+        "type": "ui_text",
+        "z": "20bcaac1.c4bfc6",
+        "group": "1bafecae.f1dc93",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Production #:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1370,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "b1321a28.56a828",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Time Output CP2",
+        "links": [
+            "a445aaf2.3aa238",
+            "def4ba50.9d6468"
+        ],
+        "x": 1075,
+        "y": 1220,
+        "wires": [
+            [
+                "c5325c76.644cd"
+            ]
+        ]
+    },
+    {
+        "id": "239b4a35.2ceab6",
+        "type": "comment",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Checkpoint 2",
+        "info": "",
+        "x": 130,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "85b0fe12.f4854",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "1a2d40dd.bcfe1f",
+            "def4ba50.9d6468"
+        ],
+        "x": 1075,
+        "y": 1180,
+        "wires": [
+            [
+                "d15b2f1d.f6a5b"
+            ]
+        ]
+    },
+    {
+        "id": "3808897a.2d1296",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "1b241a24.5bfce6",
+            "def4ba50.9d6468"
+        ],
+        "x": 1075,
+        "y": 1140,
+        "wires": [
+            [
+                "38341366.45ee8c"
+            ]
+        ]
+    },
+    {
+        "id": "1a2d40dd.bcfe1f",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "85b0fe12.f4854"
+        ],
+        "x": 955,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "1b241a24.5bfce6",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "3808897a.2d1296"
+        ],
+        "x": 955,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "d29eb576.fb1638",
+        "type": "switch",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 490,
+        "y": 1140,
+        "wires": [
+            [
+                "c7918fda.2f0bb"
+            ],
+            [
+                "77a1d1bb.4b46e"
+            ]
+        ]
+    },
+    {
+        "id": "c5325c76.644cd",
+        "type": "moment",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Current Time",
+        "topic": "",
+        "input": "payload",
+        "inputType": "msg",
+        "inTz": "America/Chicago",
+        "adjAmount": "0",
+        "adjType": "minutes",
+        "adjDir": "subtract",
+        "format": "dddd, MMMM Do, HH:mm:ss",
+        "locale": "C",
+        "output": "payload",
+        "outputType": "msg",
+        "outTz": "America/Chicago",
+        "x": 1210,
+        "y": 1220,
+        "wires": [
+            [
+                "76a0e0e2.95789"
+            ]
+        ]
+    },
+    {
+        "id": "b3029df3.215bc",
+        "type": "ui_toast",
+        "z": "20bcaac1.c4bfc6",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "topic": "",
+        "name": "",
+        "x": 1390,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "2c71fb0f.6b7fa4",
+        "type": "function",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Invalid RFIDuid",
+        "func": "msg.topic = \"This unit has not completed the previous checkpoint!\";\nmsg.payload = \"Please return to Checkpoint 1\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1200,
+        "y": 1060,
+        "wires": [
+            [
+                "b3029df3.215bc"
+            ]
+        ]
+    },
+    {
+        "id": "7dc7974b.9ff388",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "c7918fda.2f0bb"
+        ],
+        "x": 1075,
+        "y": 1060,
+        "wires": [
+            [
+                "2c71fb0f.6b7fa4"
+            ]
+        ]
+    },
+    {
+        "id": "c7918fda.2f0bb",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "7dc7974b.9ff388"
+        ],
+        "x": 955,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "a2548632.fcb9b8",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "a1bbe8fe.93c8b8",
+            "9760b84f.8927c8"
+        ],
+        "x": 455,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "c0d0630f.1177b",
+        "type": "sqlite",
+        "z": "20bcaac1.c4bfc6",
+        "mydb": "98f8377c.7eed38",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "SQL",
+        "x": 1450,
+        "y": 1260,
+        "wires": [
+            [
+                "d47f9c57.a54fc"
+            ]
+        ]
+    },
+    {
+        "id": "13d2c157.e9a5df",
+        "type": "change",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "SELECT ProductionNum FROM Checkpoint2 ORDER BY ProductionNum ASC",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1310,
+        "y": 1260,
+        "wires": [
+            [
+                "c0d0630f.1177b"
+            ]
+        ]
+    },
+    {
+        "id": "d47f9c57.a54fc",
+        "type": "ui_template",
+        "z": "20bcaac1.c4bfc6",
+        "group": "1bafecae.f1dc93",
+        "name": "Active Checkpoint 2 List",
+        "order": 5,
+        "width": "8",
+        "height": "2",
+        "format": "<table style=\"width:100%\">\n  <tr ng-repeat=\"x in msg.payload\">\n    <td style=\"text-align:center\">{{msg.payload[$index].ProductionNum}}</td>\n  </tr>\n</table>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 1630,
+        "y": 1260,
+        "wires": [
+            [
+                "a9e10e4a.8cffa"
+            ]
+        ]
+    },
+    {
+        "id": "a1bbe8fe.93c8b8",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Checkpoint 1 Table",
+        "links": [
+            "a2548632.fcb9b8",
+            "def4ba50.9d6468",
+            "3fb9e080.8459a",
+            "e5def33.5977d1"
+        ],
+        "x": 1075,
+        "y": 1260,
+        "wires": [
+            [
+                "1d745500.c2d53b"
+            ]
+        ]
+    },
+    {
+        "id": "71de0d9b.1d1c04",
+        "type": "change",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Create Checkpoint2",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "CREATE TABLE Checkpoint2( ProductionNum INT NOT NULL, RFIDuid varchar(255) NOT NULL, Timestamp varchar(255) NOT NULL, Checkpoint varchar(255) NOT NULL)",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 160,
+        "y": 1260,
+        "wires": [
+            [
+                "bb4572c.40f179"
+            ]
+        ]
+    },
+    {
+        "id": "4e3c72a3.e86f3c",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "e5def33.5977d1"
+        ],
+        "x": 35,
+        "y": 1260,
+        "wires": [
+            [
+                "71de0d9b.1d1c04"
+            ]
+        ]
+    },
+    {
+        "id": "280cd798.a22cb8",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "+1 Total Battery Count Out",
+        "links": [
+            "ddacc0.d867234",
+            "5fd39908.677c88"
+        ],
+        "x": 955,
+        "y": 1860,
+        "wires": []
+    },
+    {
+        "id": "e82a7c61.b3d5b",
+        "type": "ui_template",
+        "z": "20bcaac1.c4bfc6",
+        "group": "ae0e0f56.8219f",
+        "name": "Stats Table",
+        "order": 11,
+        "width": "8",
+        "height": 2,
+        "format": "<table style=\"width:100%\">\n<caption>Battery Plant</caption>\n  <tr>\n    <th style=\"text-align:center\">Offline</th> \n    <th style=\"text-align:center\">Pct Offline</th>\n    <th style=\"text-align:center\">Final OK</th> \n    <th style=\"text-align:center\">Pct Final OK</th>\n  </tr>\n  <tr ng-repeat=\"x in msg.payload | limitTo:1\">\n    <td style=\"text-align:center\">{{msg.payload[0]}}</td>\n    <td style=\"text-align:center\">{{msg.payload[1]}}</td>\n    <td style=\"text-align:center\">{{msg.payload[2]}}</td> \n    <td style=\"text-align:center\">{{msg.payload[3]}}</td>\n  </tr>\n</table>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 1370,
+        "y": 720,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c55b834f.d8cad",
+        "type": "function",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Update Pct",
+        "func": "var batteryStarted = flow.get(\"total_battery_start\");\nvar batteryOffline = flow.get(\"total_battery_offline\");\nvar batteryFinalok = flow.get(\"total_battery_finalok\");\n\nvar offlinePct = ((batteryOffline / batteryStarted)*100).toFixed(2);\nvar finalokPct = ((batteryFinalok / batteryStarted)*100).toFixed(2);\n\nvar offlinePct1 = flow.get(\"offlinePct\");\nvar finalokPct1 = flow.get(\"finalokPct\");\n\nvar msg1 = { payload:batteryOffline };\nvar msg2 = { payload:offlinePct + \"%\" };\nvar msg3 = { payload:batteryFinalok };\nvar msg4 = { payload:finalokPct + \"%\" };\nreturn [[ msg1, msg2, msg3, msg4 ]];",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 710,
+        "y": 720,
+        "wires": [
+            [
+                "8e397f26.144ec"
+            ]
+        ]
+    },
+    {
+        "id": "8e397f26.144ec",
+        "type": "join",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "4",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 870,
+        "y": 720,
+        "wires": [
+            [
+                "5d7b4db8.f5d344"
+            ]
+        ]
+    },
+    {
+        "id": "5fd39908.677c88",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "d8b2662.2391c98",
+            "280cd798.a22cb8",
+            "33c9b5b3.09462a"
+        ],
+        "x": 595,
+        "y": 720,
+        "wires": [
+            [
+                "c55b834f.d8cad"
+            ]
+        ]
+    },
+    {
+        "id": "3a469786.9f7cf8",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "5d7b4db8.f5d344",
+            "def4ba50.9d6468"
+        ],
+        "x": 1075,
+        "y": 720,
+        "wires": [
+            [
+                "e82a7c61.b3d5b"
+            ]
+        ]
+    },
+    {
+        "id": "5d7b4db8.f5d344",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "3a469786.9f7cf8"
+        ],
+        "x": 955,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "e2f022bc.d30b8",
+        "type": "function",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Assign Variables",
+        "func": "var total_battery_start = flow.get('total_battery_start')||0;\n\ntotal_battery_start = total_battery_start + 1;\n\nflow.set(\"total_battery_start\", total_battery_start);\n\nvar productionNum = flow.get('productionNum')||6200000;\n\nproductionNum = productionNum + 1;\n\nflow.set(\"productionNum\", productionNum);\n\nvar msg1 = { payload:flow.get(\"productionNum\") };\n\nvar msg2 = { payload:msg.payload };\n\nvar msg3 = { payload:flow.get(\"current_time\") };\n\nvar msg4 = { payload:\"Checkpoint 1\" };\n\nvar msg5 = { payload:flow.get(\"total_battery_start\") };\n\nreturn [ msg1, msg2, msg3, msg5, [ msg1, msg2, msg3, msg4 ] ];",
+        "outputs": 5,
+        "noerr": 0,
+        "x": 720,
+        "y": 900,
+        "wires": [
+            [
+                "3057af87.f8fe"
+            ],
+            [
+                "7d2e5ae3.989554"
+            ],
+            [
+                "65bcabb5.07f9f4"
+            ],
+            [
+                "d8b2662.2391c98"
+            ],
+            [
+                "6865aad4.d8f464"
+            ]
+        ]
+    },
+    {
+        "id": "6865aad4.d8f464",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "6afb109f.474d2"
+        ],
+        "x": 955,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "dd01bb6c.619188",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "9760b84f.8927c8"
+        ],
+        "x": 455,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "ceb0e177.13d73",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "bb312b05.dd9ae8"
+        ],
+        "x": 955,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "bb312b05.dd9ae8",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "SQL INPUT",
+        "links": [
+            "ceb0e177.13d73",
+            "243f6b8d.2a3894",
+            "733d76ae.d518f8",
+            "3949047d.672adc",
+            "7e5ac303.be0e7c"
+        ],
+        "x": 595,
+        "y": 120,
+        "wires": [
+            [
+                "a2177b7b.5ab7d8"
+            ]
+        ]
+    },
+    {
+        "id": "a2177b7b.5ab7d8",
+        "type": "sqlite",
+        "z": "20bcaac1.c4bfc6",
+        "mydb": "98f8377c.7eed38",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "SQL",
+        "x": 690,
+        "y": 120,
+        "wires": [
+            [
+                "34aa8f15.e5451"
+            ]
+        ]
+    },
+    {
+        "id": "638c9b13.e5a024",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "fa835f99.0a67e",
+            "8fdf549e.f68cc8"
+        ],
+        "x": 955,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "4597e7a.194fa18",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "e488c1ca.fdbcf",
+            "9a330daf.d553c"
+        ],
+        "x": 455,
+        "y": 1820,
+        "wires": []
+    },
+    {
+        "id": "243f6b8d.2a3894",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "bb312b05.dd9ae8"
+        ],
+        "x": 955,
+        "y": 1660,
+        "wires": []
+    },
+    {
+        "id": "d5480293.fc6c8",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "b2ec4118.b3e71",
+            "df3b927a.45318"
+        ],
+        "x": 955,
+        "y": 1820,
+        "wires": []
+    },
+    {
+        "id": "9a41853e.0bbec8",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "e149fea2.f55f7",
+            "e488c1ca.fdbcf"
+        ],
+        "x": 475,
+        "y": 2100,
+        "wires": []
+    },
+    {
+        "id": "b5105120.29aa3",
+        "type": "inject",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Scan RFID",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "60",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 130,
+        "y": 1220,
+        "wires": [
+            [
+                "bdc0972e.904238"
+            ]
+        ]
+    },
+    {
+        "id": "beb9128a.81775",
+        "type": "inject",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Scan RFID",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "60",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 130,
+        "y": 1780,
+        "wires": [
+            [
+                "ddeb6f5f.54065"
+            ]
+        ]
+    },
+    {
+        "id": "9ed10c81.cb048",
+        "type": "inject",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Scan RFID",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "60",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 130,
+        "y": 2060,
+        "wires": [
+            [
+                "aee359ac.75add8"
+            ]
+        ]
+    },
+    {
+        "id": "aee359ac.75add8",
+        "type": "delay",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "pauseType": "random",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "2",
+        "randomUnits": "minutes",
+        "drop": false,
+        "x": 120,
+        "y": 2020,
+        "wires": [
+            [
+                "22339a5c.1a7086"
+            ]
+        ]
+    },
+    {
+        "id": "560f5d3d.d19c24",
+        "type": "sqlite",
+        "z": "20bcaac1.c4bfc6",
+        "mydb": "98f8377c.7eed38",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "SQL",
+        "x": 370,
+        "y": 1540,
+        "wires": [
+            [
+                "3fb9e080.8459a"
+            ]
+        ]
+    },
+    {
+        "id": "9102da16.648938",
+        "type": "function",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Write to SQL",
+        "func": "var ProductionNum = (msg.payload[0]);\nvar RFIDuid = msg.payload[1];\nvar Time = msg.payload[2];\nvar Checkpoint = (msg.payload[3]);\nvar newMsg = {\n \"topic\": \"INSERT INTO Assembly VALUES (\" + ProductionNum + \", '\" + RFIDuid + \"', '\" + Time + \"', '\" + Checkpoint + \"')\"\n};\nvar newMsg1 = {\n \"topic\": \"INSERT INTO Checkpoint3 VALUES (\" + ProductionNum + \", '\" + RFIDuid + \"', '\" + Time + \"', '\" + Checkpoint + \"')\"\n};\nreturn [ [ newMsg, newMsg1 ] ];",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 1500,
+        "wires": [
+            [
+                "560f5d3d.d19c24"
+            ]
+        ]
+    },
+    {
+        "id": "e0fe1688.735dc8",
+        "type": "delay",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "pauseType": "random",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "2",
+        "randomUnits": "minutes",
+        "drop": false,
+        "x": 120,
+        "y": 1460,
+        "wires": [
+            [
+                "49997c6d.036ba4"
+            ]
+        ]
+    },
+    {
+        "id": "49997c6d.036ba4",
+        "type": "ui_button",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "group": "cfee7865.0624f8",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "label": "Scan RFID",
+        "tooltip": "Scan RFID Tag on Battery Module",
+        "color": "",
+        "bgcolor": "blue",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "x": 130,
+        "y": 1420,
+        "wires": [
+            [
+                "2a605b34.6ad074"
+            ]
+        ]
+    },
+    {
+        "id": "a61cb362.42772",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "bd8b2c49.7cce6",
+            "d1c738e4.127568"
+        ],
+        "x": 955,
+        "y": 1500,
+        "wires": []
+    },
+    {
+        "id": "12f7483c.7b4138",
+        "type": "join",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "4",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 370,
+        "y": 1460,
+        "wires": [
+            [
+                "9102da16.648938"
+            ]
+        ]
+    },
+    {
+        "id": "de81bf06.321dd",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Join Checkpoint 2",
+        "links": [
+            "c967572e.7a3d18",
+            "1ae42b07.6e8f35"
+        ],
+        "x": 275,
+        "y": 1460,
+        "wires": [
+            [
+                "12f7483c.7b4138"
+            ]
+        ]
+    },
+    {
+        "id": "2a605b34.6ad074",
+        "type": "switch",
+        "z": "20bcaac1.c4bfc6",
+        "name": "current status",
+        "property": "current_status",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "Operational",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Operational",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 140,
+        "y": 1380,
+        "wires": [
+            [
+                "d15d4d0e.63e38"
+            ],
+            [
+                "5389619a.50337"
+            ]
+        ]
+    },
+    {
+        "id": "d15d4d0e.63e38",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "ed7d894e.bd1d88"
+        ],
+        "x": 275,
+        "y": 1360,
+        "wires": []
+    },
+    {
+        "id": "5389619a.50337",
+        "type": "change",
+        "z": "20bcaac1.c4bfc6",
+        "name": "query checkpoint2 for rfiduid",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "SELECT RFIDuid, ProductionNum FROM Checkpoint2 ORDER BY ProductionNum ASC LIMIT 1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 440,
+        "y": 1380,
+        "wires": [
+            [
+                "1984b5b6.5f9d8a"
+            ]
+        ]
+    },
+    {
+        "id": "1984b5b6.5f9d8a",
+        "type": "sqlite",
+        "z": "20bcaac1.c4bfc6",
+        "mydb": "98f8377c.7eed38",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "SQL",
+        "x": 370,
+        "y": 1420,
+        "wires": [
+            [
+                "7f204726.68f618"
+            ]
+        ]
+    },
+    {
+        "id": "1564d62a.9f63ba",
+        "type": "function",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Delete query",
+        "func": "var newMsg = { \n    \"topic\": \"DELETE FROM Checkpoint2 WHERE ProductionNum=\" + msg.payload[0].ProductionNum\n};\nvar newMsg1 = { payload:msg.payload[0].ProductionNum };\nvar newMsg2 = { payload:msg.payload[0].RFIDuid };\nvar newMsg3 = { payload:flow.get(\"current_time\") };\nvar newMsg4 = { payload:\"Checkpoint 3\" };\nreturn [newMsg, newMsg1, newMsg2, newMsg3, [ newMsg1, newMsg2, newMsg3, newMsg4 ] ];",
+        "outputs": 5,
+        "noerr": 0,
+        "x": 710,
+        "y": 1460,
+        "wires": [
+            [
+                "3949047d.672adc"
+            ],
+            [
+                "5d8a9fc5.de649"
+            ],
+            [
+                "3a6c16bb.b0261a"
+            ],
+            [
+                "a61cb362.42772"
+            ],
+            [
+                "1ae42b07.6e8f35"
+            ]
+        ]
+    },
+    {
+        "id": "5e22348d.c94f2c",
+        "type": "ui_text",
+        "z": "20bcaac1.c4bfc6",
+        "group": "cfee7865.0624f8",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "ID:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1350,
+        "y": 1460,
+        "wires": []
+    },
+    {
+        "id": "70eab5ac.0604ec",
+        "type": "ui_text",
+        "z": "20bcaac1.c4bfc6",
+        "group": "cfee7865.0624f8",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Time Scanned:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1380,
+        "y": 1500,
+        "wires": []
+    },
+    {
+        "id": "673fd651.4bf1c8",
+        "type": "ui_text",
+        "z": "20bcaac1.c4bfc6",
+        "group": "cfee7865.0624f8",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Production #:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1370,
+        "y": 1420,
+        "wires": []
+    },
+    {
+        "id": "d1c738e4.127568",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Time Output CP2",
+        "links": [
+            "a61cb362.42772",
+            "def4ba50.9d6468"
+        ],
+        "x": 1075,
+        "y": 1500,
+        "wires": [
+            [
+                "46d7ab53.894d54"
+            ]
+        ]
+    },
+    {
+        "id": "a2869913.74bf48",
+        "type": "comment",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Checkpoint 3",
+        "info": "",
+        "x": 130,
+        "y": 1340,
+        "wires": []
+    },
+    {
+        "id": "a1f3294b.8d3ca8",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "3a6c16bb.b0261a",
+            "def4ba50.9d6468"
+        ],
+        "x": 1075,
+        "y": 1460,
+        "wires": [
+            [
+                "5e22348d.c94f2c"
+            ]
+        ]
+    },
+    {
+        "id": "79fafaae.f955d4",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "5d8a9fc5.de649",
+            "def4ba50.9d6468"
+        ],
+        "x": 1075,
+        "y": 1420,
+        "wires": [
+            [
+                "673fd651.4bf1c8"
+            ]
+        ]
+    },
+    {
+        "id": "3a6c16bb.b0261a",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "a1f3294b.8d3ca8"
+        ],
+        "x": 955,
+        "y": 1460,
+        "wires": []
+    },
+    {
+        "id": "5d8a9fc5.de649",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "79fafaae.f955d4"
+        ],
+        "x": 955,
+        "y": 1420,
+        "wires": []
+    },
+    {
+        "id": "7f204726.68f618",
+        "type": "switch",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 490,
+        "y": 1420,
+        "wires": [
+            [
+                "2e82539b.54d64c"
+            ],
+            [
+                "1564d62a.9f63ba"
+            ]
+        ]
+    },
+    {
+        "id": "46d7ab53.894d54",
+        "type": "moment",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Current Time",
+        "topic": "",
+        "input": "payload",
+        "inputType": "msg",
+        "inTz": "America/Chicago",
+        "adjAmount": "0",
+        "adjType": "minutes",
+        "adjDir": "subtract",
+        "format": "dddd, MMMM Do, HH:mm:ss",
+        "locale": "C",
+        "output": "payload",
+        "outputType": "msg",
+        "outTz": "America/Chicago",
+        "x": 1210,
+        "y": 1500,
+        "wires": [
+            [
+                "70eab5ac.0604ec"
+            ]
+        ]
+    },
+    {
+        "id": "bb61dc49.b8417",
+        "type": "ui_toast",
+        "z": "20bcaac1.c4bfc6",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "topic": "",
+        "name": "",
+        "x": 1390,
+        "y": 1340,
+        "wires": []
+    },
+    {
+        "id": "9bbee9f6.4725e8",
+        "type": "function",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Invalid RFIDuid",
+        "func": "msg.topic = \"This unit has not completed the previous checkpoint!\";\nmsg.payload = \"Please return to Checkpoint 2\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1200,
+        "y": 1340,
+        "wires": [
+            [
+                "bb61dc49.b8417"
+            ]
+        ]
+    },
+    {
+        "id": "c9730f90.bdcbd",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "2e82539b.54d64c"
+        ],
+        "x": 1075,
+        "y": 1340,
+        "wires": [
+            [
+                "9bbee9f6.4725e8"
+            ]
+        ]
+    },
+    {
+        "id": "2e82539b.54d64c",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "c9730f90.bdcbd"
+        ],
+        "x": 955,
+        "y": 1340,
+        "wires": []
+    },
+    {
+        "id": "3fb9e080.8459a",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "9a330daf.d553c",
+            "a1bbe8fe.93c8b8"
+        ],
+        "x": 455,
+        "y": 1540,
+        "wires": []
+    },
+    {
+        "id": "c79ef973.6b5368",
+        "type": "sqlite",
+        "z": "20bcaac1.c4bfc6",
+        "mydb": "98f8377c.7eed38",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "SQL",
+        "x": 1450,
+        "y": 1540,
+        "wires": [
+            [
+                "bb579dc7.c06e9"
+            ]
+        ]
+    },
+    {
+        "id": "c59627b0.8b9058",
+        "type": "change",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "SELECT ProductionNum FROM Checkpoint3 ORDER BY ProductionNum ASC",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1310,
+        "y": 1540,
+        "wires": [
+            [
+                "c79ef973.6b5368"
+            ]
+        ]
+    },
+    {
+        "id": "bb579dc7.c06e9",
+        "type": "ui_template",
+        "z": "20bcaac1.c4bfc6",
+        "group": "cfee7865.0624f8",
+        "name": "Active Checkpoint 3 List",
+        "order": 5,
+        "width": "8",
+        "height": "2",
+        "format": "<table style=\"width:100%\">\n  <tr ng-repeat=\"x in msg.payload\">\n    <td style=\"text-align:center\">{{msg.payload[$index].ProductionNum}}</td>\n  </tr>\n</table>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 1630,
+        "y": 1540,
+        "wires": [
+            [
+                "d4af5475.153738"
+            ]
+        ]
+    },
+    {
+        "id": "9a330daf.d553c",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Checkpoint 3 Table",
+        "links": [
+            "def4ba50.9d6468",
+            "3fb9e080.8459a",
+            "4597e7a.194fa18",
+            "e5def33.5977d1"
+        ],
+        "x": 1075,
+        "y": 1540,
+        "wires": [
+            [
+                "39760d13.abd112"
+            ]
+        ]
+    },
+    {
+        "id": "bbfb745c.eb37e8",
+        "type": "change",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Create Checkpoint3",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "CREATE TABLE Checkpoint3( ProductionNum INT NOT NULL, RFIDuid varchar(255) NOT NULL, Timestamp varchar(255) NOT NULL, Checkpoint varchar(255) NOT NULL)",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 160,
+        "y": 1540,
+        "wires": [
+            [
+                "560f5d3d.d19c24"
+            ]
+        ]
+    },
+    {
+        "id": "c64c5591.8bec18",
+        "type": "link in",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "e5def33.5977d1"
+        ],
+        "x": 35,
+        "y": 1540,
+        "wires": [
+            [
+                "bbfb745c.eb37e8"
+            ]
+        ]
+    },
+    {
+        "id": "3949047d.672adc",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "bb312b05.dd9ae8"
+        ],
+        "x": 955,
+        "y": 1380,
+        "wires": []
+    },
+    {
+        "id": "1ae42b07.6e8f35",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "de81bf06.321dd",
+            "8fdf549e.f68cc8"
+        ],
+        "x": 955,
+        "y": 1540,
+        "wires": []
+    },
+    {
+        "id": "1ce1aac2.ec4dc5",
+        "type": "inject",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Scan RFID",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "60",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 130,
+        "y": 1500,
+        "wires": [
+            [
+                "e0fe1688.735dc8"
+            ]
+        ]
+    },
+    {
+        "id": "7e5ac303.be0e7c",
+        "type": "link out",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "links": [
+            "bb312b05.dd9ae8"
+        ],
+        "x": 875,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "2e1303d.7425dfc",
+        "type": "csv",
+        "z": "20bcaac1.c4bfc6",
+        "name": "checkpoint1",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "ProductionNum",
+        "skip": "0",
+        "strings": true,
+        "x": 1990,
+        "y": 980,
+        "wires": [
+            [
+                "ff9ca24d.b9884"
+            ]
+        ]
+    },
+    {
+        "id": "ff9ca24d.b9884",
+        "type": "file",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "filename": "/data/battery_plant/checkpoint1",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 2210,
+        "y": 980,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dec9a9f8.a8a728",
+        "type": "delay",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1830,
+        "y": 980,
+        "wires": [
+            [
+                "2e1303d.7425dfc"
+            ]
+        ]
+    },
+    {
+        "id": "3668a503.e610aa",
+        "type": "csv",
+        "z": "20bcaac1.c4bfc6",
+        "name": "checkpoint2",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "ProductionNum",
+        "skip": "0",
+        "strings": true,
+        "x": 1990,
+        "y": 1260,
+        "wires": [
+            [
+                "5472b25a.3e470c"
+            ]
+        ]
+    },
+    {
+        "id": "5472b25a.3e470c",
+        "type": "file",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "filename": "/data/battery_plant/checkpoint2",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 2210,
+        "y": 1260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a9e10e4a.8cffa",
+        "type": "delay",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1830,
+        "y": 1260,
+        "wires": [
+            [
+                "3668a503.e610aa"
+            ]
+        ]
+    },
+    {
+        "id": "a75680ae.c8825",
+        "type": "csv",
+        "z": "20bcaac1.c4bfc6",
+        "name": "checkpoint3",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "ProductionNum",
+        "skip": "0",
+        "strings": true,
+        "x": 1990,
+        "y": 1540,
+        "wires": [
+            [
+                "510015e7.02a21c"
+            ]
+        ]
+    },
+    {
+        "id": "510015e7.02a21c",
+        "type": "file",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "filename": "/data/battery_plant/checkpoint3",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 2210,
+        "y": 1540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d4af5475.153738",
+        "type": "delay",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1830,
+        "y": 1540,
+        "wires": [
+            [
+                "a75680ae.c8825"
+            ]
+        ]
+    },
+    {
+        "id": "346ccf11.b0285",
+        "type": "csv",
+        "z": "20bcaac1.c4bfc6",
+        "name": "offline",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "ProductionNum",
+        "skip": "0",
+        "strings": true,
+        "x": 1930,
+        "y": 1820,
+        "wires": [
+            [
+                "94a3c383.81ca7"
+            ]
+        ]
+    },
+    {
+        "id": "94a3c383.81ca7",
+        "type": "file",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "filename": "/data/battery_plant/offline",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 2110,
+        "y": 1820,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e493d1dd.eead1",
+        "type": "delay",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1790,
+        "y": 1820,
+        "wires": [
+            [
+                "346ccf11.b0285"
+            ]
+        ]
+    },
+    {
+        "id": "10a01a30.5b4f86",
+        "type": "csv",
+        "z": "20bcaac1.c4bfc6",
+        "name": "finalok",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "ProductionNum",
+        "skip": "0",
+        "strings": true,
+        "x": 1930,
+        "y": 2100,
+        "wires": [
+            [
+                "9f0c170e.a97a68"
+            ]
+        ]
+    },
+    {
+        "id": "9f0c170e.a97a68",
+        "type": "file",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "filename": "/data/battery_plant/finalok",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 2110,
+        "y": 2100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "833fb17f.a566e",
+        "type": "delay",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1790,
+        "y": 2100,
+        "wires": [
+            [
+                "10a01a30.5b4f86"
+            ]
+        ]
+    },
+    {
+        "id": "5efa971a.2334d8",
+        "type": "delay",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1160,
+        "y": 980,
+        "wires": [
+            [
+                "16deb20d.9772ae"
+            ]
+        ]
+    },
+    {
+        "id": "1d745500.c2d53b",
+        "type": "delay",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1160,
+        "y": 1260,
+        "wires": [
+            [
+                "13d2c157.e9a5df"
+            ]
+        ]
+    },
+    {
+        "id": "39760d13.abd112",
+        "type": "delay",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1160,
+        "y": 1540,
+        "wires": [
+            [
+                "c59627b0.8b9058"
+            ]
+        ]
+    },
+    {
+        "id": "98281b7c.4e0028",
+        "type": "delay",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1160,
+        "y": 1820,
+        "wires": [
+            [
+                "b3238661.02ebc8"
+            ]
+        ]
+    },
+    {
+        "id": "e5a4885f.39a9b8",
+        "type": "delay",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1160,
+        "y": 2100,
+        "wires": [
+            [
+                "1b9b9cae.850973"
+            ]
+        ]
+    },
+    {
+        "id": "5d277564.9e589c",
+        "type": "debug",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Floorplan output",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 1180,
+        "y": 2360,
+        "wires": []
+    },
+    {
+        "id": "a1d0553f.954648",
+        "type": "ui_svg_graphics",
+        "z": "20bcaac1.c4bfc6",
+        "group": "d4c6ca14.6a81e8",
+        "order": 1,
+        "width": "14",
+        "height": "10",
+        "svgString": "<svg preserveAspectRatio=\"none\" x=\"0\" y=\"0\" viewBox=\"0 0 900 710\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n  <image width=\"889\" height=\"703\" id=\"background\" xlink:href=\"https://www.roomsketcher.com/wp-content/uploads/2016/10/1-Bedroom-Floor-Plans.jpg\" />\n  <text id=\"banner\" x=\"10\" y=\"16\" fill=\"black\" stroke=\"black\" font-size=\"35\" text-anchor=\"left\" alignment-baseline=\"middle\" stroke-width=\"1\">This is the #banner</text>\n  <circle id=\"pir_living\" cx=\"310\" cy=\"45\" r=\"5\" stroke-width=\"0\" fill=\"#FF0000\" />\n  <text id=\"camera_living\" x=\"310\" y=\"45\" font-family=\"FontAwesome\" fill=\"grey\" stroke=\"black\" font-size=\"35\" text-anchor=\"middle\" alignment-baseline=\"middle\" stroke-width=\"1\"></text>\n</svg> ",
+        "clickableShapes": [
+            {
+                "targetId": "#camera_living",
+                "action": "click",
+                "payload": "camera_living",
+                "payloadType": "str",
+                "topic": "camera_living"
+            }
+        ],
+        "smilAnimations": [],
+        "bindings": [
+            {
+                "selector": "#banner",
+                "bindSource": "payload.title",
+                "bindType": "text",
+                "attribute": ""
+            },
+            {
+                "selector": "#camera_living",
+                "bindSource": "payload.position.x",
+                "bindType": "attr",
+                "attribute": "x"
+            },
+            {
+                "selector": "#camera_living",
+                "bindSource": "payload.camera.colour",
+                "bindType": "attr",
+                "attribute": "fill"
+            }
+        ],
+        "showCoordinates": false,
+        "autoFormatAfterEdit": false,
+        "outputField": "",
+        "editorUrl": "http://drawsvg.org/drawsvg.html",
+        "directory": "",
+        "name": "",
+        "x": 980,
+        "y": 2360,
+        "wires": [
+            [
+                "5d277564.9e589c"
+            ]
+        ]
+    },
+    {
+        "id": "15067e5f.9fb922",
+        "type": "inject",
+        "z": "20bcaac1.c4bfc6",
+        "name": "databind",
+        "topic": "databind",
+        "payload": "{\"camera\":{\"colour\":\"yellow\"},\"position\":{\"x\":320},\"title\":\"databind strikes again\"}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 600,
+        "y": 2500,
+        "wires": [
+            [
+                "a1d0553f.954648"
+            ]
+        ]
+    },
+    {
+        "id": "d6c1beba.473e3",
+        "type": "inject",
+        "z": "20bcaac1.c4bfc6",
+        "name": "databind",
+        "topic": "databind",
+        "payload": "{\"camera\":{\"colour\":\"green\"},\"position\":{\"x\":250},\"title\":\"New banner title by databind\"}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 600,
+        "y": 2460,
+        "wires": [
+            [
+                "a1d0553f.954648"
+            ]
+        ]
+    },
+    {
+        "id": "b3201df3.33f5c",
+        "type": "inject",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Fill camera green + rotate 90",
+        "topic": "update_attribute",
+        "payload": "[{\"command\":\"update_attribute\",\"selector\":\"#camera_living\",\"attributeName\":\"fill\",\"attributeValue\":\"green\"},{\"command\":\"set_attribute\",\"selector\":\"#camera_living\",\"attributeName\":\"rotate\",\"attributeValue\":\"90\"}]",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 660,
+        "y": 2320,
+        "wires": [
+            [
+                "a1d0553f.954648"
+            ]
+        ]
+    },
+    {
+        "id": "3f2e5407.d27b8c",
+        "type": "inject",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Fill camera orange + rotate 180",
+        "topic": "update_attribute",
+        "payload": "[{\"command\":\"update_attribute\",\"selector\":\"#camera_living\",\"attributeName\":\"fill\",\"attributeValue\":\"orange\"},{\"command\":\"set_attribute\",\"selector\":\"#camera_living\",\"attributeName\":\"rotate\",\"attributeValue\":\"180\"}]",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 670,
+        "y": 2360,
+        "wires": [
+            [
+                "a1d0553f.954648"
+            ]
+        ]
+    },
+    {
+        "id": "93d020aa.f5a17",
+        "type": "inject",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Fill camera icon blue",
+        "topic": "update_attribute",
+        "payload": "[{\"command\":\"update_attribute\",\"selector\":\"#camera_living\",\"attributeName\":\"fill\",\"attributeValue\":\"blue\"},{\"command\":\"set_attribute\",\"selector\":\"#camera_living\",\"attributeName\":\"rotate\",\"attributeValue\":\"0\"}]",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 630,
+        "y": 2280,
+        "wires": [
+            [
+                "a1d0553f.954648",
+                "93dad9db.e8d8d8"
+            ]
+        ]
+    },
+    {
+        "id": "93dad9db.e8d8d8",
+        "type": "debug",
+        "z": "20bcaac1.c4bfc6",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 920,
+        "y": 2260,
+        "wires": []
+    },
+    {
+        "id": "329524d.05e8cdc",
+        "type": "ui_group",
+        "z": "",
+        "name": "Checkpoint 1 - Last Scanned",
+        "tab": "d0064b07.a87638",
+        "order": 2,
+        "disp": true,
+        "width": "8",
+        "collapse": true
+    },
+    {
+        "id": "ae0e0f56.8219f",
+        "type": "ui_group",
+        "z": "20bcaac1.c4bfc6",
+        "name": "Current Stats",
+        "tab": "d0064b07.a87638",
+        "order": 1,
+        "disp": true,
+        "width": 8,
+        "collapse": true
+    },
+    {
+        "id": "ed1d55ca.3ebb28",
+        "type": "ui_group",
+        "z": "",
+        "name": "Search",
+        "tab": "a861d1b1.13e4",
+        "order": 5,
+        "disp": true,
+        "width": 14,
+        "collapse": false
+    },
+    {
+        "id": "98f8377c.7eed38",
+        "type": "sqlitedb",
+        "z": "",
+        "db": "/data/battery_plant/Assembly.sqlite3",
+        "mode": "RWC"
+    },
+    {
+        "id": "8b9e50c3.ba469",
+        "type": "ui_group",
+        "z": "",
+        "name": "Offline - Last Scanned",
+        "tab": "d0064b07.a87638",
+        "order": 5,
+        "disp": true,
+        "width": "8",
+        "collapse": true
+    },
+    {
+        "id": "d5311607.0b5458",
+        "type": "ui_group",
+        "z": "",
+        "name": "Final OK - Last Scanned",
+        "tab": "d0064b07.a87638",
+        "order": 6,
+        "disp": true,
+        "width": "8",
+        "collapse": true
+    },
+    {
+        "id": "1bafecae.f1dc93",
+        "type": "ui_group",
+        "z": "",
+        "name": "Checkpoint 2 - Last Scanned",
+        "tab": "d0064b07.a87638",
+        "order": 3,
+        "disp": true,
+        "width": "8",
+        "collapse": true
+    },
+    {
+        "id": "cfee7865.0624f8",
+        "type": "ui_group",
+        "z": "",
+        "name": "Checkpoint 3 - Last Scanned",
+        "tab": "d0064b07.a87638",
+        "order": 4,
+        "disp": true,
+        "width": "8",
+        "collapse": true
+    },
+    {
+        "id": "d4c6ca14.6a81e8",
+        "type": "ui_group",
+        "z": "",
+        "name": "Floorplan test",
+        "tab": "fa6d4bda.0790f8",
+        "disp": true,
+        "width": "14",
+        "collapse": false
+    },
+    {
+        "id": "d0064b07.a87638",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Overview",
+        "icon": "assessment",
+        "order": 1,
+        "disabled": true,
+        "hidden": false
+    },
+    {
+        "id": "a861d1b1.13e4",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Search Production Number",
+        "icon": "search",
+        "order": 7,
+        "disabled": true,
+        "hidden": false
+    },
+    {
+        "id": "fa6d4bda.0790f8",
+        "type": "ui_tab",
+        "z": "",
+        "name": "SVG",
+        "icon": "dashboard",
+        "disabled": true,
+        "hidden": false
+    }
+]
